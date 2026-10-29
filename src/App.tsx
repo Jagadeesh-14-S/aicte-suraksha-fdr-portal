@@ -7,6 +7,7 @@ import { FdrUploadModal } from './components/FdrUploadModal';
 import { DiscrepancyInspectorModal } from './components/DiscrepancyInspectorModal';
 import { BankLienModal } from './components/BankLienModal';
 import { RefundWorkflowModal } from './components/RefundWorkflowModal';
+import { SupabaseConnectModal } from './components/SupabaseConnectModal';
 
 import { DashboardOverview } from './pages/DashboardOverview';
 import { FdrRepository } from './pages/FdrRepository';
@@ -27,6 +28,7 @@ export const App: React.FC = () => {
   const [copilotOpen, setCopilotOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
+  const [supabaseOpen, setSupabaseOpen] = useState(false);
 
   const [inspectFdr, setInspectFdr] = useState<FdrInstrument | null>(null);
   const [bankLienFdr, setBankLienFdr] = useState<FdrInstrument | null>(null);
@@ -50,6 +52,7 @@ export const App: React.FC = () => {
       <Navbar
         onOpenCopilot={() => setCopilotOpen(true)}
         onOpenNotifications={() => setNotificationsOpen(true)}
+        onOpenSupabase={() => setSupabaseOpen(true)}
       />
 
       <div className="flex-1 flex overflow-hidden">
@@ -145,6 +148,11 @@ export const App: React.FC = () => {
       <RefundWorkflowModal
         fdr={refundFdr}
         onClose={() => setRefundFdr(null)}
+      />
+
+      <SupabaseConnectModal
+        isOpen={supabaseOpen}
+        onClose={() => setSupabaseOpen(false)}
       />
     </div>
   );

@@ -162,6 +162,22 @@ Access the production Nginx server at **[http://localhost:3000](http://localhost
 
 ---
 
+## ⚡ Supabase Cloud Backend Integration
+
+AICTE-SURAKSHA now features native support for **Supabase (PostgreSQL & Realtime)**:
+
+* **PostgreSQL Relational Schema:** Tables for `institutions`, `fdr_instruments`, `discrepancy_flags`, `bank_verifications`, `release_requests`, `audit_blocks`, and `alerts`.
+* **Row-Level Security (RLS):** Granular policies enforcing AICTE Bureau, Regional Officer territorial boundaries, Institution isolation, and Bank verification permissions.
+* **Postgres Realtime:** Instant live WebSocket sync across all RO scrutiny desks when an FDR is uploaded or lien-marked.
+* **SQL Migration Script:** Ready to run at [`supabase/schema.sql`](supabase/schema.sql).
+
+### Connecting Your Supabase Project:
+1. Create a free project on [Supabase.com](https://supabase.com).
+2. Open the **SQL Editor** in Supabase and paste the contents of `supabase/schema.sql`.
+3. In the AICTE-SURAKSHA portal, click the **Supabase DB** button in the top navigation bar and enter your **Project URL** and **Anon Key** (or add them to `.env`).
+
+---
+
 ## 🏆 Smart India Hackathon (SIH) Compliance Checklist
 
 - [x] **Problem Statement ID 26265:** Complete statutory streamlining of AICTE Security Deposit & FDR Management.

@@ -9,7 +9,8 @@ import {
   Building2, 
   Landmark, 
   FileCheck2,
-  AlertTriangle
+  AlertTriangle,
+  Database
 } from 'lucide-react';
 import { useAuth, PRESET_USERS } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
@@ -18,9 +19,10 @@ import { UserRole } from '../types';
 interface NavbarProps {
   onOpenCopilot: () => void;
   onOpenNotifications: () => void;
+  onOpenSupabase: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotifications }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotifications, onOpenSupabase }) => {
   const { currentUser, switchRole } = useAuth();
   const { notifications, resetToDefault, backendConnected } = useApp();
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
@@ -82,6 +84,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotificatio
 
         {/* Right Action Cluster */}
         <div className="flex items-center space-x-3 sm:space-x-4">
+          {/* Supabase / Backend Status Pill */}
+          <button
+            onClick={onOpenSupabase}
+            className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-mono border bg-slate-950/80 border-slate-700 hover:border-emerald-500 text-slate-300 hover:text-white transition-all shadow-sm"
+            title="Configure Supabase PostgreSQL / Cloud Backend"
+          >
+            <Database className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="hidden md:inline">Supabase DB</span>
+          </button>
+
           {/* Backend Status Pill */}
           <div className="hidden lg:flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono border bg-slate-950/70 border-slate-800">
             <span className={`w-2 h-2 rounded-full ${backendConnected ? 'bg-emerald-400 animate-pulse' : 'bg-blue-400'}`}></span>
