@@ -14,6 +14,7 @@ import { MOCK_FDR_INSTRUMENTS, MOCK_INSTITUTIONS } from '../data/mockInstitution
 import { ImmutableAuditChain, INITIAL_GENESIS_BLOCK } from '../services/merkleAuditLedger';
 import { generateAutomatedAlerts } from '../services/automatedAlertEngine';
 import { evaluateFdrDiscrepancies } from '../services/discrepancyDetector';
+import { apiService, BackendHealthResponse } from '../services/apiService';
 import { useAuth } from './AuthContext';
 
 interface AppContextType {
@@ -29,6 +30,9 @@ interface AppContextType {
   setStatusFilter: (status: string) => void;
   regionFilter: string;
   setRegionFilter: (region: string) => void;
+  backendConnected: boolean;
+  backendInfo: BackendHealthResponse | null;
+  checkBackendConnection: () => Promise<void>;
   
   // Actions
   addNewFdr: (fdr: Partial<FdrInstrument>) => Promise<FdrInstrument>;
@@ -86,6 +90,31 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [regionFilter, setRegionFilter] = useState('ALL');
 
+  // Backend Connectivity State
+  const [backendConnected, setBackendConnected] = useState<boolean>(false);
+  const [backendInfo, setBackendInfo] = useState<BackendHealthResponse | null>(null);
+
+  const checkBackendConnection = async () => {
+    const health = await apiService.checkHealth();
+    setBackendConnected(health.isConnected);
+    setBackendInfo(health);
+
+    if (health.isConnected) {
+      const serverFdrs = await apiService.getFdrs();
+      if (serverFdrs && serverFdrs.length > 0) {
+        setFdrList(serverFdrs);
+      }
+      const serverLedger = await apiService.getLedger();
+      if (serverLedger && serverLedger.length > 0) {
+        setAuditBlocks(serverLedger);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkBackendConnection();
+  }, []);
+
   // Sync state to local storage & refresh alerts
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_FDR_KEY, JSON.stringify(fdrList));
@@ -138,6 +167,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setAuditBlocks(auditChain.getBlocks());
     setFdrList(prev => [newFdr, ...prev]);
+
+    // Dual-write to backend server if online
+    if (backendConnected) {
+      apiService.createFdr(newFdr).catch(() => {});
+    }
+
     return newFdr;
   };
 
@@ -169,6 +204,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setAuditBlocks(auditChain.getBlocks());
     setFdrList(updatedList);
+
+    if (backendConnected) {
+      apiService.updateScrutiny(fdrId, status, remarks, currentUser.name).catch(() => {});
+    }
   };
 
   const registerBankLienConfirmation = async (fdrId: string, bankRecord: BankVerificationRecord) => {
@@ -195,6 +234,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     setAuditBlocks(auditChain.getBlocks());
     setFdrList(updatedList);
+
+    if (backendConnected) {
+      apiService.markLien(fdrId, currentUser.name).catch(() => {});
+    }
   };
 
   const submitReleaseRequest = async (fdrId: string, releaseData: Partial<ReleaseRequest>) => {
@@ -382,6 +425,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setStatusFilter,
       regionFilter,
       setRegionFilter,
+      backendConnected,
+      backendInfo,
+      checkBackendConnection,
       addNewFdr,
       updateFdrScrutiny,
       registerBankLienConfirmation,

@@ -366,3 +366,4 @@ app.listen(PORT, () => {
   console.log(`Standard: ISO 20022 camt.053 & NeSL e-BG Interoperable`);
   console.log(`=======================================================`);
 });
+

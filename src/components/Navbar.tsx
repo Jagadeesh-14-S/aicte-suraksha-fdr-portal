@@ -22,7 +22,7 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotifications }) => {
   const { currentUser, switchRole } = useAuth();
-  const { notifications, resetToDefault } = useApp();
+  const { notifications, resetToDefault, backendConnected } = useApp();
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
 
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -82,6 +82,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotificatio
 
         {/* Right Action Cluster */}
         <div className="flex items-center space-x-3 sm:space-x-4">
+          {/* Backend Status Pill */}
+          <div className="hidden lg:flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono border bg-slate-950/70 border-slate-800">
+            <span className={`w-2 h-2 rounded-full ${backendConnected ? 'bg-emerald-400 animate-pulse' : 'bg-blue-400'}`}></span>
+            <span className={backendConnected ? 'text-emerald-400 font-semibold' : 'text-blue-300'}>
+              {backendConnected ? 'Backend API: Live (:5000)' : 'GitHub Pages Cloud Mode'}
+            </span>
+          </div>
+
           {/* AICTE Copilot Button */}
           <button
             onClick={onOpenCopilot}
