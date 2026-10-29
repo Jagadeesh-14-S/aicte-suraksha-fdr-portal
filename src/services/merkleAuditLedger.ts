@@ -111,3 +111,4 @@ export class ImmutableAuditChain {
     return { isValid: true };
   }
 }
+

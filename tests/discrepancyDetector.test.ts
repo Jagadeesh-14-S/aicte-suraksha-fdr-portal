@@ -81,3 +81,4 @@ describe('AICTE-SURAKSHA 12-Point Discrepancy Detection Algorithm', () => {
     expect(result.complianceScore).toBe(100);
   });
 });
+

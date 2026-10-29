@@ -98,3 +98,4 @@ Where:
 - $w_{\text{info}} = 5$ (Irregular account number format, missing contact metadata).
 
 If $S_{\text{comp}} < 70$, the deposit instrument is automatically routed to the **Priority Scrutiny Bureau** with an automated show-cause notice draft.
+

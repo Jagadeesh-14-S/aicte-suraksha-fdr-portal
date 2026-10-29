@@ -28,3 +28,4 @@ jobs:
 
       - name: Build Production Distribution
         run: npm run build
+

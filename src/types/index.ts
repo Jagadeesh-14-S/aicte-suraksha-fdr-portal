@@ -183,3 +183,4 @@ export interface ResearchPaper {
   surakshaImplementation: string;
   tags: string[];
 }
+

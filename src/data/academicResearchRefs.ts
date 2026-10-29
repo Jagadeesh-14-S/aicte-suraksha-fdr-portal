@@ -98,3 +98,4 @@ export const ACADEMIC_RESEARCH_PAPERS: ResearchPaper[] = [
     tags: ['Regulatory Compliance', 'Legal Ontologies', 'Automated Rule Checking', 'IEEE']
   }
 ];
+

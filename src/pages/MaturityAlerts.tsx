@@ -237,3 +237,4 @@ export const MaturityAlerts: React.FC<MaturityAlertsProps> = ({
     </div>
   );
 };
+

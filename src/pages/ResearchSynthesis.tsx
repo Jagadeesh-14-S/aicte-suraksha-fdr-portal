@@ -234,3 +234,4 @@ export const ResearchSynthesis: React.FC = () => {
     </div>
   );
 };
+

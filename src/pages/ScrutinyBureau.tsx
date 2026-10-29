@@ -189,3 +189,4 @@ export const ScrutinyBureau: React.FC<ScrutinyBureauProps> = ({
     </div>
   );
 };
+

@@ -174,3 +174,4 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotificatio
     </header>
   );
 };
+

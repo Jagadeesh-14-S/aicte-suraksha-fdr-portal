@@ -114,3 +114,4 @@ Evaluates statutory compliance:
 ### Module 8: Suraksha AI Regulatory Copilot
 - Interactive natural language assistant trained on AICTE Approval Process Handbook (APH 2024-27).
 - Answers regulatory questions, explains discrepancy reasons, and provides step-by-step guidance.
+
