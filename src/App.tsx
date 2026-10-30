@@ -12,6 +12,7 @@ import { GovFooter } from './components/GovFooter';
 
 import { DashboardOverview } from './pages/DashboardOverview';
 import { FdrRepository } from './pages/FdrRepository';
+import { LineageProvenanceView } from './pages/LineageProvenanceView';
 import { ScrutinyBureau } from './pages/ScrutinyBureau';
 import { BankLienPortal } from './pages/BankLienPortal';
 import { MaturityAlerts } from './pages/MaturityAlerts';
@@ -80,6 +81,14 @@ export const App: React.FC = () => {
                 onOpenUpload={() => setUploadOpen(true)}
                 onOpenBankLien={(fdr) => setBankLienFdr(fdr)}
                 onOpenRefund={(fdr) => setRefundFdr(fdr)}
+              />
+            )}
+
+            {currentTab === 'lineage' && (
+              <LineageProvenanceView
+                onSelectFdr={handleSelectFdrById}
+                onOpenRefund={(fdr) => setRefundFdr(fdr)}
+                onOpenBankLien={(fdr) => setBankLienFdr(fdr)}
               />
             )}
 

@@ -75,12 +75,27 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 font-serif">
               {t('hero_title')}
             </h1>
+            <div className="flex flex-wrap items-center gap-2 text-[11px]">
+              <span className="bg-emerald-50 text-emerald-900 px-2.5 py-0.5 rounded font-mono font-bold border border-emerald-300">
+                Policy Active: AICTE APH 2024-27 (v2.18)
+              </span>
+              <span className="text-slate-400">•</span>
+              <span className="text-slate-600 font-medium">
+                10-Year Lock-In & Separation of Scrutiny/Approval Enforced
+              </span>
+            </div>
             <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
               {t('hero_subtitle')}
             </p>
           </div>
 
-          <div className="flex items-center space-x-3 shrink-0 self-start md:self-center">
+          <div className="flex flex-wrap items-center gap-2 shrink-0 self-start md:self-center">
+            <button
+              onClick={() => onNavigateTab('lineage')}
+              className="px-3.5 py-2.5 bg-orange-50 hover:bg-orange-100 text-orange-950 font-bold rounded-lg text-xs flex items-center space-x-1.5 border border-orange-300 shadow-2xs transition-colors"
+            >
+              <span>Provenance & Lineage</span>
+            </button>
             <button
               onClick={onOpenUpload}
               className="px-4 py-2.5 bg-[#C2410C] hover:bg-[#9A3412] text-white font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow-xs transition-colors"

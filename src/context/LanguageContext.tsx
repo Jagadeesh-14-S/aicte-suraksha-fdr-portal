@@ -53,6 +53,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     // Sidebar Tabs
     'nav_dashboard': 'Executive Dashboard',
     'nav_repository': 'FDR Master Repository',
+    'nav_lineage': 'Evidence Provenance & Lineage',
     'nav_scrutiny': 'Scrutiny Bureau (RO)',
     'nav_cbs': 'Core Banking (CBS) Gateway',
     'nav_maturity': 'Maturity & Validity Radar',
@@ -118,6 +119,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
 
     'nav_dashboard': 'कार्यकारी डैशबोर्ड',
     'nav_repository': 'एफडीआर मास्टर रिपॉजिटरी',
+    'nav_lineage': 'साक्ष्य स्रोत एवं वंशानुक्रम (Lineage)',
     'nav_scrutiny': 'जांच ब्यूरो (क्षेत्रीय कार्यालय)',
     'nav_cbs': 'कोर बैंकिंग (CBS) गेटवे',
     'nav_maturity': 'परिपक्वता एवं वैधता रडार',
@@ -179,6 +181,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
 
     'nav_dashboard': 'நிர்வாக டாஷ்போர்டு',
     'nav_repository': 'எஃப்டிஆர் களஞ்சியம்',
+    'nav_lineage': 'சான்று மூலம் & பரம்பரை வரைபடம்',
     'nav_scrutiny': 'ஆய்வு பணியகம் (RO)',
     'nav_cbs': 'வங்கி (CBS) நுழைவாயில்',
     'nav_maturity': 'முதிர்வு & செல்லுபடி ரேடார்',
@@ -240,6 +243,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
 
     'nav_dashboard': 'ఎగ్జిక్యూటివ్ డాష్‌బోర్డ్',
     'nav_repository': 'FDR మాస్టర్ రిపోజిటరీ',
+    'nav_lineage': 'సాక్ష్య మూలం & వంశావళి ట్రాకర్',
     'nav_scrutiny': 'పరిశీలన బ్యూరో (RO)',
     'nav_cbs': 'కోర్ బ్యాంకింగ్ (CBS) గేట్‌వే',
     'nav_maturity': 'గడువు & చెల్లుబాటు రాడార్',

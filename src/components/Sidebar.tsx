@@ -10,7 +10,8 @@ import {
   GraduationCap,
   ShieldCheck,
   Building,
-  UserCheck
+  UserCheck,
+  GitFork
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
@@ -19,6 +20,7 @@ import { useLanguage } from '../context/LanguageContext';
 export type NavTab = 
   | 'dashboard'
   | 'repository'
+  | 'lineage'
   | 'scrutiny'
   | 'bank-portal'
   | 'maturity'
@@ -55,6 +57,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onSelectTab }) => 
       icon: FolderKanban,
       badge: fdrList.length,
       badgeColor: 'bg-slate-100 text-slate-700 border border-slate-300'
+    },
+    {
+      id: 'lineage' as NavTab,
+      labelKey: 'nav_lineage',
+      defaultLabel: 'Evidence Provenance & Lineage',
+      icon: GitFork,
+      badge: 'P0 Core',
+      badgeColor: 'bg-orange-100 text-orange-950 border border-orange-200'
     },
     {
       id: 'scrutiny' as NavTab,

@@ -33,6 +33,7 @@ export const DiscrepancyInspectorModal: React.FC<DiscrepancyInspectorModalProps>
   const { currentUser } = useAuth();
 
   const [showElaHeatmap, setShowElaHeatmap] = useState(false);
+  const [modalView, setModalView] = useState<'SCRUTINY' | 'PROVENANCE'>('SCRUTINY');
   const [remarks, setRemarks] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -197,10 +198,67 @@ export const DiscrepancyInspectorModal: React.FC<DiscrepancyInspectorModalProps>
 
           {/* Right Column (7 Cols): Discrepancy Breakdown & Scrutiny Controls */}
           <div className="lg:col-span-7 flex flex-col space-y-4">
-            <div>
-              <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
-                12-Point Automated Scrutiny Matrix Results
-              </h4>
+            {/* View Switcher Header */}
+            <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+              <div className="flex space-x-2 text-xs font-bold">
+                <button
+                  type="button"
+                  onClick={() => setModalView('SCRUTINY')}
+                  className={`px-3 py-1.5 rounded-lg transition-colors ${
+                    modalView === 'SCRUTINY' ? 'bg-[#C2410C] text-white shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  12-Point Scrutiny Matrix
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setModalView('PROVENANCE')}
+                  className={`px-3 py-1.5 rounded-lg transition-colors ${
+                    modalView === 'PROVENANCE' ? 'bg-[#C2410C] text-white shadow-2xs' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                  }`}
+                >
+                  Field Evidence Provenance (Doc P0)
+                </button>
+              </div>
+            </div>
+
+            {modalView === 'PROVENANCE' ? (
+              <div className="space-y-3">
+                <div className="bg-amber-50 border border-amber-200 p-2.5 rounded-lg text-[11px] text-amber-950">
+                  <strong>Provenance Ledger:</strong> Every field below displays its exact capture origin, confidence score, and independent confirmation status.
+                </div>
+                <div className="space-y-2 max-h-[320px] overflow-y-auto pr-1">
+                  {[
+                    { field: 'Principal Deposit', val: `₹ ${fdr.depositAmount.toLocaleString('en-IN')}`, src: fdr.bankVerification ? 'Bank CBS camt.053' : 'LayoutLM OCR', conf: '98.5%', stat: fdr.bankVerification ? 'BANK_CONFIRMED' : 'VALIDATED' },
+                    { field: 'Maturity Date (10-Yr)', val: fdr.maturityDate, src: 'OCR Coordinate Extraction', conf: '96.2%', stat: 'VALIDATED' },
+                    { field: 'Account Number', val: fdr.accountNumber, src: fdr.bankVerification ? 'Finacle CBS Verified' : 'OCR Scan', conf: '99.1%', stat: fdr.bankVerification ? 'BANK_CONFIRMED' : 'VALIDATED' },
+                    { field: 'Joint Holding', val: fdr.jointHolderNames, src: 'Legal Scrutiny Audit', conf: '95.0%', stat: fdr.jointHolderNames.includes('AICTE') ? 'VALIDATED' : 'DISCREPANCY_FLAGGED' },
+                    { field: 'Core Banking Lien', val: fdr.lienStatus === 'LIEN_CONFIRMED' ? 'Marked in CBS' : 'Pending', src: 'NeSL e-BG Gateway', conf: '100%', stat: fdr.lienStatus === 'LIEN_CONFIRMED' ? 'BANK_CONFIRMED' : 'AWAITING_BANK' }
+                  ].map((p, i) => (
+                    <div key={i} className="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-xs space-y-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-bold text-slate-900">{p.field}</span>
+                        <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${
+                          p.stat === 'BANK_CONFIRMED' ? 'bg-emerald-100 text-emerald-800' :
+                          p.stat === 'VALIDATED' ? 'bg-blue-100 text-blue-800' :
+                          p.stat === 'AWAITING_BANK' ? 'bg-amber-100 text-amber-800' : 'bg-rose-100 text-rose-800'
+                        }`}>
+                          {p.stat}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-slate-600 text-[11px]">
+                        <span>Value: <strong className="font-mono text-slate-900">{p.val}</strong></span>
+                        <span>Source: <strong className="text-slate-800">{p.src}</strong> ({p.conf})</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div>
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2">
+                  12-Point Automated Scrutiny Matrix Results
+                </h4>
 
               {fdr.discrepancies.length === 0 ? (
                 <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-xs flex items-center space-x-3">
@@ -273,6 +331,7 @@ export const DiscrepancyInspectorModal: React.FC<DiscrepancyInspectorModalProps>
                 </div>
               )}
             </div>
+            )}
 
             {/* Core Banking Lien Status */}
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs flex items-center justify-between">

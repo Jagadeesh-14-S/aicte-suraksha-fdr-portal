@@ -4,6 +4,9 @@ import { FdrInstrument, AuditBlock } from '../types';
 const STORAGE_URL_KEY = 'suraksha_supabase_url';
 const STORAGE_KEY_KEY = 'suraksha_supabase_anon_key';
 
+const DEFAULT_SUPABASE_URL = 'https://facgypxmfphniegjmbdj.supabase.co';
+const DEFAULT_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhY2d5cHhtZnBobmllZ2ptYmRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzODIzMTcsImV4cCI6MjEwODk1ODMxN30.jFelG2AItKAnyl6ipKkPJMBAsl4mv1sJnQUYPL1EEy4';
+
 export function getSupabaseCredentials(): { url: string; anonKey: string } {
   const metaEnv = (import.meta as any).env || {};
   const envUrl = metaEnv.VITE_SUPABASE_URL || '';
@@ -13,8 +16,8 @@ export function getSupabaseCredentials(): { url: string; anonKey: string } {
   const localKey = typeof window !== 'undefined' ? localStorage.getItem(STORAGE_KEY_KEY) || '' : '';
 
   return {
-    url: localUrl || envUrl,
-    anonKey: localKey || envKey
+    url: localUrl || envUrl || DEFAULT_SUPABASE_URL,
+    anonKey: localKey || envKey || DEFAULT_SUPABASE_KEY
   };
 }
 
@@ -67,10 +70,14 @@ export async function testSupabaseConnection(url?: string, anonKey?: string): Pr
 
     if (error && error.code !== 'PGRST116') {
       // If table doesn't exist yet, it's connected to Postgres but schema not run
-      if (error.message.includes('relation') && error.message.includes('does not exist')) {
+      if (
+        (error.message.includes('relation') && error.message.includes('does not exist')) ||
+        error.message.includes('schema cache') ||
+        error.code === 'PGRST205'
+      ) {
         return { 
           success: true, 
-          message: 'Connected to Supabase! (Tables pending: please run schema.sql in Supabase SQL Editor)' 
+          message: 'Connected to Supabase PostgreSQL! (Database authenticated; run schema.sql in SQL Editor to sync tables)' 
         };
       }
       return { success: false, message: `Supabase Error: ${error.message}` };

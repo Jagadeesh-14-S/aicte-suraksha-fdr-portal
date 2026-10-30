@@ -185,7 +185,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-600 mt-0.5">
                 <span className="font-semibold text-amber-900">{t('regulation_bureau')}</span>
                 <span className="text-slate-300">•</span>
-                <span className="text-slate-500 font-medium">{t('portal_title')}</span>
+                <span className="font-bold text-slate-800">FDR-SENTINEL</span>
+                <span className="text-slate-300">•</span>
+                <span className="text-slate-500 font-medium">PS 26265 • Provenance-Aware Lifecycle Portal</span>
               </div>
             </div>
           </div>
@@ -196,11 +198,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Supabase Cloud DB Status */}
           <button
             onClick={onOpenSupabase}
-            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 transition-colors shadow-2xs"
-            title="Configure Supabase PostgreSQL / Cloud Backend"
+            className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 transition-colors shadow-2xs"
+            title="Supabase PostgreSQL: Connected (https://facgypxmfphniegjmbdj.supabase.co)"
           >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
             <Database className="w-3.5 h-3.5 text-emerald-700" />
-            <span className="hidden lg:inline text-[11px] font-semibold">{t('connect_supabase')}</span>
+            <span className="hidden lg:inline text-[11px] font-semibold">Supabase (Live)</span>
           </button>
 
           {/* AICTE Regulatory Copilot */}

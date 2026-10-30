@@ -111,6 +111,24 @@ export interface FdrInstrument {
   scrutinyOfficer?: string;
   releaseRequest?: ReleaseRequest;
   renewalHistory?: RenewalRecord[];
+  predecessorInstrumentId?: string; // Predecessor in lineage
+  successorInstrumentId?: string; // Replacement/Renewal successor
+  policyVersion?: string; // APH Policy version applied
+  fieldProvenance?: Record<string, {
+    value: any;
+    sourceType: 'INSTITUTION_ENTRY' | 'OCR_EXTRACTED' | 'RO_SCRUTINY' | 'BANK_CONFIRMED';
+    confidence: number;
+    timestamp: string;
+    confirmedBy?: string;
+    status: 'SUBMITTED' | 'VALIDATED' | 'AWAITING_BANK' | 'BANK_CONFIRMED';
+  }>;
+  duplicateCandidates?: Array<{
+    candidateId: string;
+    candidateFdrNumber: string;
+    similarityScore: number;
+    matchReasons: string[];
+    status: 'FLAGGED' | 'DISMISSED' | 'CONFIRMED_DUPLICATE';
+  }>;
   createdAt: string;
   updatedAt: string;
 }
