@@ -125,7 +125,7 @@ export const ReleaseRefundWorkflow: React.FC<ReleaseRefundWorkflowProps> = ({
                 <div className="flex items-center space-x-2 shrink-0">
                   <button
                     onClick={() => onOpenRefund(fdr)}
-                    className="px-3.5 py-1.5 bg-[#0B3558] hover:bg-[#07243c] text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-colors"
+                    className="px-3.5 py-1.5 bg-[#C2410C] hover:bg-[#9A3412] text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-colors"
                   >
                     <span>Inspect & Review Sanction</span>
                     <ArrowRight className="w-3.5 h-3.5" />

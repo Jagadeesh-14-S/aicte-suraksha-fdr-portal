@@ -195,7 +195,7 @@ export const MaturityAlerts: React.FC<MaturityAlertsProps> = ({
 
                     <button
                       onClick={() => onOpenRefund(fdr)}
-                      className="px-3.5 py-1.5 bg-[#0B3558] hover:bg-[#07243c] text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-colors"
+                      className="px-3.5 py-1.5 bg-[#C2410C] hover:bg-[#9A3412] text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-colors"
                     >
                       <FileCheck2 className="w-3.5 h-3.5" />
                       <span>Process Release / Renewal</span>

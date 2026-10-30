@@ -100,7 +100,7 @@ export const ImmutableLedger: React.FC = () => {
           <div key={block.blockIndex} className="bg-white border border-slate-200/90 rounded-xl p-4 shadow-sm space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2">
               <div className="flex items-center space-x-2">
-                <span className="bg-[#0B3558] text-white font-mono text-xs font-bold px-2.5 py-0.5 rounded">
+                <span className="bg-slate-800 text-white font-mono text-xs font-bold px-2.5 py-0.5 rounded">
                   BLOCK #{block.blockIndex}
                 </span>
                 <span className="font-semibold text-slate-900 text-xs">{block.action}</span>

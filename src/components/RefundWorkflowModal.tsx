@@ -60,21 +60,21 @@ export const RefundWorkflowModal: React.FC<RefundWorkflowModalProps> = ({ fdr, o
     <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="w-full max-w-3xl bg-white border border-slate-300 rounded-xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-slate-800">
         {/* Header */}
-        <div className="p-4 bg-[#0B3558] text-white flex items-center justify-between border-b border-[#07243c]">
+        <div className="p-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white">
+            <div className="w-10 h-10 rounded-lg bg-orange-600/20 flex items-center justify-center text-orange-400">
               <FileCheck className="w-6 h-6" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-white">Security Deposit Release & Refund Gateway</h3>
-              <p className="text-xs text-blue-100">
+              <p className="text-xs text-slate-300">
                 AICTE Approval Process Handbook (APH) Clause 2.18 Multi-Tier Statutory Verification
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-blue-200 hover:text-white rounded-lg hover:bg-white/10"
+            className="p-1.5 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800"
           >
             <X className="w-5 h-5" />
           </button>
@@ -151,7 +151,7 @@ export const RefundWorkflowModal: React.FC<RefundWorkflowModalProps> = ({ fdr, o
                   type="button"
                   onClick={handleInitSubmission}
                   disabled={submitting}
-                  className="px-5 py-2.5 bg-[#0B3558] hover:bg-[#07243c] text-white font-semibold rounded-lg text-xs flex items-center space-x-2 shadow-sm"
+                  className="px-5 py-2.5 bg-[#C2410C] hover:bg-[#9A3412] text-white font-semibold rounded-lg text-xs flex items-center space-x-2 shadow-xs"
                 >
                   <span>Submit Dossier to Regional Officer</span>
                   <ArrowRight className="w-4 h-4" />

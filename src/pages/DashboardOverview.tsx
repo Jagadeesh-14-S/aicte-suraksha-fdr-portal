@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { REGIONAL_OFFICES_METADATA } from '../data/aicteNorms';
 import { RegionalOffice } from '../types';
 import { IndiaEmblem, AicteEmblem } from '../components/Emblems';
@@ -33,6 +34,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 }) => {
   const { fdrList } = useApp();
   const { currentUser } = useAuth();
+  const { t } = useLanguage();
 
   // Aggregate Metrics
   const totalDepositAmount = fdrList.reduce((acc, f) => acc + f.depositAmount, 0);
@@ -56,58 +58,63 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
-      {/* 1. Official AICTE Regulation Bureau Executive Banner */}
-      <div className="bg-[#0B3558] rounded-xl p-6 text-white shadow-sm border border-[#082842] relative overflow-hidden">
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5">
+      {/* 1. Official AICTE Regulation Bureau Executive Banner (Authentic Government White & Tricolor) */}
+      <div className="bg-white rounded-xl p-6 text-slate-900 shadow-xs border border-slate-200/90 relative overflow-hidden">
+        {/* Top Sovereign Tricolor Accent Ribbon */}
+        <div className="h-1.5 w-full flex absolute top-0 left-0">
+          <div className="w-1/3 bg-[#FF9933]"></div>
+          <div className="w-1/3 bg-white"></div>
+          <div className="w-1/3 bg-[#138808]"></div>
+        </div>
+
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-5 pt-1">
           <div className="space-y-2">
-            <div className="flex items-center space-x-2 text-amber-300 text-xs font-bold uppercase tracking-wider">
-              <span>अखिल भारतीय तकनीकी शिक्षा परिषद • विनियमन ब्यूरो</span>
-              <span className="text-slate-400">•</span>
-              <span>New Delhi</span>
+            <div className="flex items-center space-x-2 text-[#C2410C] text-xs font-bold uppercase tracking-wider">
+              <span>{t('hero_council')}</span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white font-serif">
-              National Security Deposit & FDR Surveillance Dashboard
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 font-serif">
+              {t('hero_title')}
             </h1>
-            <p className="text-xs sm:text-sm text-slate-200 max-w-2xl leading-relaxed">
-              Statutory regulatory portal for automated validity monitoring, live Core Banking Solution (CBS) lien tracking, multi-tier discrepancy detection, and 10-year lock-in refund management under AICTE Approval Process Handbook (APH) regulations.
+            <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
+              {t('hero_subtitle')}
             </p>
           </div>
 
           <div className="flex items-center space-x-3 shrink-0 self-start md:self-center">
             <button
               onClick={onOpenUpload}
-              className="px-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-[#0B3558] font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow transition-colors"
+              className="px-4 py-2.5 bg-[#C2410C] hover:bg-[#9A3412] text-white font-bold rounded-lg text-xs flex items-center space-x-1.5 shadow-xs transition-colors"
             >
               <Plus className="w-4 h-4" />
-              <span>Submit Digital FDR</span>
+              <span>{t('btn_submit_fdr')}</span>
             </button>
             <button
               onClick={() => onNavigateTab('repository')}
-              className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white rounded-lg text-xs font-semibold border border-white/20 flex items-center space-x-1.5 transition-colors"
+              className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-semibold border border-slate-300 flex items-center space-x-1.5 transition-colors"
             >
-              <span>Repository ({fdrList.length})</span>
-              <ArrowUpRight className="w-4 h-4" />
+              <span>{t('btn_view_repo')} ({fdrList.length})</span>
+              <ArrowUpRight className="w-4 h-4 text-slate-600" />
             </button>
           </div>
         </div>
 
         {/* Subtle Ashoka Emblem Watermark in background */}
-        <div className="absolute right-4 -bottom-6 opacity-10 pointer-events-none">
-          <IndiaEmblem className="w-48 h-48 text-white" />
+        <div className="absolute right-4 -bottom-6 opacity-5 pointer-events-none text-slate-900">
+          <IndiaEmblem className="w-48 h-48" />
         </div>
       </div>
 
       {/* 2. Official Statutory KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* KPI 1: Total Escrow Under Custody */}
-        <div className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white border border-slate-200/90 border-t-4 border-t-amber-600 rounded-xl p-5 shadow-xs hover:shadow-sm transition-shadow">
           <div className="flex items-center justify-between text-slate-600 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">Total Deposit Corpus</span>
-            <div className="p-2 bg-blue-50 rounded-lg text-[#0B3558]">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">{t('kpi_total_corpus')}</span>
+            <div className="p-2 bg-amber-50 rounded-lg text-amber-800">
               <Landmark className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-[#0B3558] font-mono">
+          <div className="text-2xl font-extrabold text-slate-900 font-mono">
             ₹ {(totalDepositAmount / 10000000).toFixed(2)} Cr
           </div>
           <div className="mt-2 text-xs text-slate-500 flex items-center space-x-1.5">
@@ -117,57 +124,56 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         </div>
 
         {/* KPI 2: CBS Live Lien Compliance */}
-        <div className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+        <div className="bg-white border border-slate-200/90 border-t-4 border-t-emerald-600 rounded-xl p-5 shadow-xs hover:shadow-sm transition-shadow">
           <div className="flex items-center justify-between text-slate-600 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">Bank Lien Compliance</span>
-            <div className="p-2 bg-emerald-50 rounded-lg text-emerald-700">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">{t('kpi_bank_lien')}</span>
+            <div className="p-2 bg-emerald-50 rounded-lg text-emerald-800">
               <ShieldCheck className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-emerald-700 font-mono">
+          <div className="text-2xl font-extrabold text-emerald-800 font-mono">
             {lienComplianceRate}%
           </div>
           <div className="mt-2 text-xs text-slate-500">
-            <strong className="text-slate-800">{lienConfirmedCount} of {fdrList.length}</strong> non-encashable liens marked in CBS
+            <strong className="text-slate-800">{lienConfirmedCount} of {fdrList.length}</strong> {t('kpi_bank_desc')}
           </div>
         </div>
 
         {/* KPI 3: Scrutiny Discrepancies */}
         <div 
           onClick={() => onNavigateTab('scrutiny')}
-          className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-sm hover:border-red-400 hover:shadow-md transition-all cursor-pointer group"
+          className="bg-white border border-slate-200/90 border-t-4 border-t-rose-600 rounded-xl p-5 shadow-xs hover:border-red-400 hover:shadow-sm transition-all cursor-pointer group"
         >
           <div className="flex items-center justify-between text-slate-600 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">Discrepancy Cases</span>
-            <div className="p-2 bg-red-50 rounded-lg text-red-700 group-hover:scale-105 transition-transform">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">{t('kpi_discrepancy')}</span>
+            <div className="p-2 bg-rose-50 rounded-lg text-rose-800 group-hover:scale-105 transition-transform">
               <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-red-700 font-mono">
+          <div className="text-2xl font-extrabold text-rose-700 font-mono">
             {discrepancyCount}
           </div>
           <div className="mt-2 text-xs text-slate-500 flex items-center space-x-1">
-            <span className="text-red-700 font-bold">Action Required:</span>
-            <span>RO Scrutiny & ELA Review</span>
+            <span className="text-rose-700 font-bold">{t('kpi_discrepancy_desc')}</span>
           </div>
         </div>
 
         {/* KPI 4: Maturity Surveillance */}
         <div 
           onClick={() => onNavigateTab('maturity')}
-          className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-sm hover:border-amber-400 hover:shadow-md transition-all cursor-pointer group"
+          className="bg-white border border-slate-200/90 border-t-4 border-t-orange-500 rounded-xl p-5 shadow-xs hover:border-amber-400 hover:shadow-sm transition-all cursor-pointer group"
         >
           <div className="flex items-center justify-between text-slate-600 mb-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">Maturity Alerts</span>
-            <div className="p-2 bg-amber-50 rounded-lg text-amber-700 group-hover:scale-105 transition-transform">
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-700">{t('kpi_maturity')}</span>
+            <div className="p-2 bg-amber-50 rounded-lg text-amber-800 group-hover:scale-105 transition-transform">
               <Clock className="w-4 h-4" />
             </div>
           </div>
-          <div className="text-2xl font-extrabold text-amber-700 font-mono">
+          <div className="text-2xl font-extrabold text-amber-800 font-mono">
             {maturingSoonCount}
           </div>
           <div className="mt-2 text-xs text-slate-500">
-            <strong className="text-amber-700">{releasePendingCount}</strong> release requests under statutory review
+            <strong className="text-amber-800">{releasePendingCount}</strong> {t('kpi_maturity_desc')}
           </div>
         </div>
       </div>
@@ -175,33 +181,33 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
       {/* 3. Operational Queue & Regional Distribution Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column (8 Cols): Priority Cases Table */}
-        <div className="lg:col-span-8 bg-white border border-slate-200/90 rounded-xl p-5 shadow-sm space-y-4">
+        <div className="lg:col-span-8 bg-white border border-slate-200/90 rounded-xl p-5 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center space-x-2">
-              <AlertOctagon className="w-4 h-4 text-amber-600" />
+              <AlertOctagon className="w-4 h-4 text-[#C2410C]" />
               <h3 className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide">
-                Priority Regulatory Action Queue
+                {t('queue_title')}
               </h3>
             </div>
             <button
               onClick={() => onNavigateTab('scrutiny')}
-              className="text-xs text-[#0B3558] hover:underline font-bold flex items-center space-x-1"
+              className="text-xs text-[#C2410C] hover:underline font-bold flex items-center space-x-1"
             >
-              <span>View All Regional Cases</span>
+              <span>{t('view_all_cases')}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-bold uppercase text-[10px] border-y border-slate-200">
+              <thead className="bg-slate-50 text-slate-700 font-bold uppercase text-[10px] border-y border-slate-200">
                 <tr>
-                  <th className="px-3.5 py-2.5">Institution & Instrument No</th>
-                  <th className="px-3.5 py-2.5">Principal Sum</th>
-                  <th className="px-3.5 py-2.5">Territorial RO</th>
-                  <th className="px-3.5 py-2.5">Regulatory Finding</th>
-                  <th className="px-3.5 py-2.5">Status</th>
-                  <th className="px-3.5 py-2.5 text-right">Action</th>
+                  <th className="px-3.5 py-2.5">{t('col_inst_name')}</th>
+                  <th className="px-3.5 py-2.5">{t('col_principal')}</th>
+                  <th className="px-3.5 py-2.5">{t('col_ro')}</th>
+                  <th className="px-3.5 py-2.5">{t('col_finding')}</th>
+                  <th className="px-3.5 py-2.5">{t('col_status')}</th>
+                  <th className="px-3.5 py-2.5 text-right">{t('col_action')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -216,7 +222,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                     <td className="px-3.5 py-3 font-mono font-bold text-slate-800">
                       ₹ {(fdr.depositAmount / 100000).toFixed(1)} L
                     </td>
-                    <td className="px-3.5 py-3 text-slate-600 font-semibold text-[11px]">
+                    <td className="px-3.5 py-3 text-slate-700 font-semibold text-[11px]">
                       {fdr.region.split('_')[0]}
                     </td>
                     <td className="px-3.5 py-3">
@@ -227,7 +233,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                       ) : (
                         <span className="text-emerald-700 text-[11px] font-medium flex items-center space-x-1">
                           <CheckCircle className="w-3 h-3 text-emerald-600" />
-                          <span>100% Compliant</span>
+                          <span>{t('status_compliant')}</span>
                         </span>
                       )}
                     </td>
@@ -238,7 +244,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                           : fdr.status === 'MATURING_SOON'
                           ? 'bg-amber-50 text-amber-800 border border-amber-200'
                           : fdr.status === 'RELEASE_REQUESTED'
-                          ? 'bg-blue-50 text-blue-800 border border-blue-200'
+                          ? 'bg-orange-50 text-orange-800 border border-orange-200'
                           : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                       }`}>
                         {fdr.status.replace(/_/g, ' ')}
@@ -247,9 +253,9 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                     <td className="px-3.5 py-3 text-right">
                       <button
                         onClick={() => onSelectFdr(fdr.id)}
-                        className="px-2.5 py-1 bg-[#0B3558] hover:bg-[#124b7a] text-white rounded text-[11px] font-medium transition-colors shadow-sm"
+                        className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 rounded text-[11px] font-semibold transition-colors shadow-2xs"
                       >
-                        Inspect
+                        {t('btn_inspect')}
                       </button>
                     </td>
                   </tr>
@@ -262,10 +268,10 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
         {/* Right Column (4 Cols): Regional Coverage & Regulatory Standards */}
         <div className="lg:col-span-4 space-y-5">
           {/* Territorial Regional Office Distribution */}
-          <div className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-sm space-y-3">
+          <div className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-xs space-y-3">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
               <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wide">
-                Territorial RO Coverage
+                {t('territorial_coverage')}
               </h3>
               <span className="text-[10px] font-mono text-slate-500">8 Regional Offices</span>
             </div>
@@ -279,11 +285,11 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
                   <div key={reg} className="text-xs space-y-1">
                     <div className="flex justify-between text-slate-700">
                       <span className="truncate max-w-[160px] font-medium">{REGIONAL_OFFICES_METADATA[reg].name}</span>
-                      <span className="font-mono text-[#0B3558] font-bold">₹ {(data.value / 100000).toFixed(0)} L ({data.count})</span>
+                      <span className="font-mono text-slate-900 font-bold">₹ {(data.value / 100000).toFixed(0)} L ({data.count})</span>
                     </div>
                     <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden border border-slate-200">
                       <div
-                        className="bg-[#0B3558] h-full rounded-full transition-all duration-500"
+                        className="bg-[#C2410C] h-full rounded-full transition-all duration-500"
                         style={{ width: `${Math.max(pct, 10)}%` }}
                       ></div>
                     </div>
@@ -294,15 +300,15 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
 
             <button
               onClick={() => onNavigateTab('repository')}
-              className="w-full mt-2 py-2 bg-slate-100 hover:bg-slate-200 text-[#0B3558] font-bold rounded-lg text-xs transition-colors border border-slate-200 text-center"
+              className="w-full mt-2 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-lg text-xs transition-colors border border-slate-300 text-center"
             >
-              Filter All 8 Regional Offices
+              {t('filter_all_ros')}
             </button>
           </div>
 
           {/* Technical Regulatory Standards Spotlight */}
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 text-xs space-y-2">
-            <div className="flex items-center space-x-2 text-[#0B3558] font-bold">
+            <div className="flex items-center space-x-2 text-slate-900 font-bold">
               <BookOpen className="w-4 h-4 text-amber-700" />
               <span>Statutory Compliance Architecture</span>
             </div>
@@ -313,7 +319,7 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({
               <span className="font-mono text-slate-500">Standards: ISO 20022 / NeSL</span>
               <button
                 onClick={() => onNavigateTab('research')}
-                className="text-[#0B3558] hover:underline font-bold"
+                className="text-[#C2410C] hover:underline font-bold"
               >
                 View Research Hub &rarr;
               </button>

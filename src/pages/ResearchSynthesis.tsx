@@ -87,7 +87,7 @@ export const ResearchSynthesis: React.FC = () => {
                 onClick={() => setPublisherFilter(pub)}
                 className={`px-3 py-1.5 font-medium transition-colors ${
                   publisherFilter === pub
-                    ? 'bg-[#0B3558] text-white'
+                    ? 'bg-[#C2410C] text-white'
                     : 'bg-white text-slate-700 hover:bg-slate-100'
                 }`}
               >

@@ -31,19 +31,19 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
     <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/60 backdrop-blur-sm flex justify-end">
       <div className="w-full max-w-md bg-white border-l border-slate-300 text-slate-800 flex flex-col h-full shadow-2xl animate-in slide-in-from-right duration-200">
         {/* Header */}
-        <div className="p-4 bg-[#0B3558] text-white flex items-center justify-between border-b border-[#07243c]">
+        <div className="p-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center space-x-2">
-            <Bell className="w-5 h-5 text-amber-300" />
+            <Bell className="w-5 h-5 text-amber-400" />
             <div>
               <h3 className="text-sm font-bold text-white">Automated Regulatory Alerts</h3>
-              <p className="text-[11px] text-blue-100">Time-sensitive maturity & discrepancy escalations</p>
+              <p className="text-[11px] text-slate-300">Time-sensitive maturity & discrepancy escalations</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             {notifications.length > 0 && (
               <button
                 onClick={markAllAlertsAsRead}
-                className="text-xs text-blue-100 hover:text-white flex items-center space-x-1"
+                className="text-xs text-orange-400 hover:text-orange-300 flex items-center space-x-1"
                 title="Mark all as read"
               >
                 <CheckCheck className="w-4 h-4" />
@@ -52,7 +52,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({
             )}
             <button
               onClick={onClose}
-              className="p-1 text-blue-200 hover:text-white rounded-lg hover:bg-white/10"
+              className="p-1 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800"
             >
               <X className="w-5 h-5" />
             </button>

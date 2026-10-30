@@ -1,21 +1,24 @@
 import React from 'react';
 import { ShieldCheck, ExternalLink } from 'lucide-react';
 import { IndiaEmblem } from './Emblems';
+import { useLanguage } from '../context/LanguageContext';
 
 export const GovFooter: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
-    <footer className="bg-[#0B3558] text-slate-200 border-t-2 border-amber-500 font-sans text-xs">
+    <footer className="bg-slate-900 text-slate-200 border-t-2 border-[#C2410C] font-sans text-xs">
       {/* Upper Links Band */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6 grid grid-cols-1 md:grid-cols-4 gap-6">
         {/* Col 1: Institutional Authority */}
         <div className="space-y-2 md:col-span-2">
           <div className="flex items-center space-x-2">
-            <IndiaEmblem className="w-6 h-8 text-amber-300" />
+            <IndiaEmblem className="w-6 h-8 text-amber-400" />
             <div>
               <h4 className="font-bold text-white text-xs">
-                अखिल भारतीय तकनीकी शिक्षा परिषद (AICTE)
+                {t('aicte_hindi')} ({t('aicte')})
               </h4>
-              <p className="text-[11px] text-slate-300">
+              <p className="text-[11px] text-slate-400">
                 All India Council for Technical Education, New Delhi
               </p>
             </div>
@@ -74,7 +77,7 @@ export const GovFooter: React.FC = () => {
       </div>
 
       {/* Bottom Attribution Bar (Standard GoI NIC Style) */}
-      <div className="bg-[#072238] border-t border-[#13446e] px-4 sm:px-8 py-3 text-[11px] text-slate-400">
+      <div className="bg-slate-950 border-t border-slate-800 px-4 sm:px-8 py-3 text-[11px] text-slate-400">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
           <p className="text-center md:text-left">
             Website Content Managed by <strong>Regulation Bureau, All India Council for Technical Education (AICTE)</strong>
@@ -89,4 +92,3 @@ export const GovFooter: React.FC = () => {
     </footer>
   );
 };
-

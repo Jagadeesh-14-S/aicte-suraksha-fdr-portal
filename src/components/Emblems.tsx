@@ -23,7 +23,7 @@ export const IndiaEmblem: React.FC<{ className?: string }> = ({ className = "w-1
       {/* Abacus / Base Platform */}
       <rect x="20" y="80" width="80" height="12" rx="2" fill="#704214" />
       {/* Ashoka Chakra in Central Abacus */}
-      <circle cx="60" cy="86" r="5" fill="#0B3558" stroke="#FFFFFF" strokeWidth="1" />
+      <circle cx="60" cy="86" r="5" fill="#1E293B" stroke="#FFFFFF" strokeWidth="1" />
       {/* Stele Pedestal */}
       <path d="M26 92 L94 92 L88 108 L32 108 Z" fill="#8B5A2B" />
       <rect x="22" y="108" width="76" height="6" rx="1" fill="#5C3317" />

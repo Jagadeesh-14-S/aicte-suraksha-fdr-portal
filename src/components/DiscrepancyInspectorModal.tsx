@@ -59,7 +59,7 @@ export const DiscrepancyInspectorModal: React.FC<DiscrepancyInspectorModalProps>
     <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="w-full max-w-5xl bg-white border border-slate-300 rounded-xl shadow-2xl flex flex-col max-h-[92vh] overflow-hidden text-slate-800">
         {/* Header */}
-        <div className="p-4 bg-[#0B3558] text-white flex items-center justify-between border-b border-[#07243c]">
+        <div className="p-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center space-x-3">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center font-bold ${
               hasCritical ? 'bg-rose-500/20 text-rose-300 border border-rose-400/40' : 'bg-white/10 text-white'
@@ -73,14 +73,14 @@ export const DiscrepancyInspectorModal: React.FC<DiscrepancyInspectorModalProps>
                   {fdr.fdrNumber}
                 </span>
               </div>
-              <p className="text-xs text-blue-100">
+              <p className="text-xs text-slate-300">
                 {fdr.institutionName} • Region: {fdr.region}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-blue-200 hover:text-white rounded-lg hover:bg-white/10"
+            className="p-1.5 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800"
           >
             <X className="w-5 h-5" />
           </button>
@@ -290,7 +290,7 @@ export const DiscrepancyInspectorModal: React.FC<DiscrepancyInspectorModalProps>
                 <button
                   type="button"
                   onClick={() => onOpenBankLienModal(fdr)}
-                  className="px-3 py-1.5 bg-[#0B3558] hover:bg-[#07243c] text-white rounded-lg text-xs font-semibold flex items-center space-x-1"
+                  className="px-3 py-1.5 bg-[#C2410C] hover:bg-[#9A3412] text-white rounded-lg text-xs font-semibold flex items-center space-x-1"
                 >
                   <Lock className="w-3.5 h-3.5" />
                   <span>Verify on Bank CBS</span>

@@ -48,7 +48,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F6F9] text-slate-900 flex flex-col font-sans selection:bg-[#0B3558] selection:text-white">
+    <div className="min-h-screen bg-[#F4F6F9] text-slate-900 flex flex-col font-sans selection:bg-[#C2410C] selection:text-white">
       {/* Top Sovereignty & Role Navigation Bar */}
       <Navbar
         onOpenCopilot={() => setCopilotOpen(true)}

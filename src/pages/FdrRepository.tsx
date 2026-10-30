@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { FdrInstrument, FdrStatus, RegionalOffice } from '../types';
 import { REGIONAL_OFFICES_METADATA } from '../data/aicteNorms';
 
@@ -43,6 +44,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
     setRegionFilter 
   } = useApp();
   const { currentUser } = useAuth();
+  const { t } = useLanguage();
 
   // Filtered List
   const filtered = fdrList.filter((fdr) => {
@@ -93,7 +95,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-bold text-[#0B3558] uppercase tracking-wider mb-1">
+          <div className="flex items-center space-x-2 text-xs font-bold text-[#C2410C] uppercase tracking-wider mb-1">
             <FolderKanban className="w-4 h-4" />
             <span>AICTE Regulation Bureau • National Repository</span>
           </div>
@@ -115,7 +117,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
           </button>
           <button
             onClick={onOpenUpload}
-            className="px-4 py-2 bg-[#0B3558] hover:bg-[#124b7a] text-white rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow transition-colors"
+            className="px-4 py-2 bg-[#C2410C] hover:bg-[#9A3412] text-white rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow transition-colors"
           >
             <Plus className="w-4 h-4" />
             <span>New FDR Submission</span>
@@ -134,7 +136,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               placeholder="Search by Institution Name, FDR Number, Bank, or Account Number..."
-              className="w-full bg-slate-50 border border-slate-300 rounded-lg pl-10 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#0B3558] focus:bg-white transition-colors"
+              className="w-full bg-slate-50 border border-slate-300 rounded-lg pl-10 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#C2410C] focus:bg-white transition-colors"
             />
           </div>
 
@@ -143,7 +145,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-[#0B3558] focus:bg-white transition-colors"
+              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-[#C2410C] focus:bg-white transition-colors"
             >
               <option value="ALL">All Statuses ({fdrList.length})</option>
               <option value="LIEN_MARKED">Lien Marked (Active)</option>
@@ -161,7 +163,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
             <select
               value={regionFilter}
               onChange={e => setRegionFilter(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-[#0B3558] focus:bg-white transition-colors"
+              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-[#C2410C] focus:bg-white transition-colors"
             >
               <option value="ALL">All Regional Offices (All India)</option>
               {(Object.keys(REGIONAL_OFFICES_METADATA) as RegionalOffice[]).map((reg) => (
@@ -183,7 +185,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
                 setStatusFilter('ALL');
                 setRegionFilter('ALL');
               }}
-              className="text-[#0B3558] hover:underline font-bold text-xs"
+              className="text-[#C2410C] hover:underline font-bold text-xs"
             >
               Reset Filters
             </button>
@@ -232,7 +234,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
                       <td className="px-4 py-3.5 max-w-[240px]">
                         <div className="font-bold text-slate-900 truncate">{fdr.institutionName}</div>
                         <div className="text-[10px] text-slate-500 truncate">{fdr.jointHolderNames}</div>
-                        <div className="text-[10px] font-semibold text-[#0B3558]">{fdr.region.split('_')[0]}</div>
+                        <div className="text-[10px] font-semibold text-slate-700">{fdr.region.split('_')[0]}</div>
                       </td>
 
                       {/* Deposit Sum */}
@@ -298,7 +300,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
                       <td className="px-4 py-3.5 text-right space-x-1.5">
                         <button
                           onClick={() => onSelectFdr(fdr.id)}
-                          className="p-1.5 bg-slate-100 hover:bg-[#0B3558] text-slate-700 hover:text-white rounded-lg transition-colors border border-slate-200 inline-block shadow-sm"
+                          className="p-1.5 bg-slate-100 hover:bg-slate-800 text-slate-700 hover:text-white rounded-lg transition-colors border border-slate-200 inline-block shadow-sm"
                           title="Inspect Scrutiny & Forensics"
                         >
                           <Eye className="w-4 h-4" />

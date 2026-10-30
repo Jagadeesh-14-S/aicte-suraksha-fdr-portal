@@ -90,9 +90,9 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
     <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="w-full max-w-2xl bg-white border border-slate-300 rounded-xl shadow-2xl flex flex-col h-[600px] max-h-[90vh] overflow-hidden text-slate-800">
         {/* Header */}
-        <div className="p-4 bg-[#0B3558] text-white flex items-center justify-between border-b border-[#07243c]">
+        <div className="p-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white">
+            <div className="w-10 h-10 rounded-lg bg-orange-600/20 flex items-center justify-center text-orange-400">
               <Bot className="w-6 h-6" />
             </div>
             <div>
@@ -102,12 +102,12 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
                   APH Guidelines Active
                 </span>
               </div>
-              <p className="text-xs text-blue-100">AICTE Approval Process & Banking Lien Helpdesk</p>
+              <p className="text-xs text-slate-300">AICTE Approval Process & Banking Lien Helpdesk</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-blue-200 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+            className="p-1.5 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -123,14 +123,14 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
               <div
                 className={`max-w-[85%] rounded-xl p-3.5 text-xs leading-relaxed ${
                   m.sender === 'user'
-                    ? 'bg-[#0B3558] text-white rounded-br-none shadow-xs font-medium'
+                    ? 'bg-[#C2410C] text-white rounded-br-none shadow-xs font-medium'
                     : 'bg-white text-slate-800 border border-slate-200 rounded-bl-none shadow-xs'
                 }`}
               >
                 <div className="whitespace-pre-wrap">{m.text}</div>
                 {m.sourceDoc && (
-                  <div className="mt-2 pt-2 border-t border-slate-200 text-[11px] text-blue-900 font-medium flex items-center space-x-1">
-                    <BookOpen className="w-3.5 h-3.5 shrink-0 text-blue-700" />
+                  <div className="mt-2 pt-2 border-t border-slate-200 text-[11px] text-amber-900 font-medium flex items-center space-x-1">
+                    <BookOpen className="w-3.5 h-3.5 shrink-0 text-amber-700" />
                     <span>Reference: {m.sourceDoc}</span>
                   </div>
                 )}
@@ -142,7 +142,7 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
                     <button
                       key={cIdx}
                       onClick={() => handleSend(chip)}
-                      className="text-left text-[11px] bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-900 px-2.5 py-1 rounded-lg border border-slate-200 transition-colors shadow-2xs"
+                      className="text-left text-[11px] bg-white hover:bg-orange-50 text-slate-700 hover:text-orange-950 px-2.5 py-1 rounded-lg border border-slate-200 transition-colors shadow-2xs"
                     >
                       {chip}
                     </button>
@@ -154,7 +154,7 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
 
           {loading && (
             <div className="flex items-center space-x-2 text-xs text-slate-500">
-              <Sparkles className="w-4 h-4 text-blue-600 animate-spin" />
+              <Sparkles className="w-4 h-4 text-orange-600 animate-spin" />
               <span>Analyzing AICTE Regulatory Regulations...</span>
             </div>
           )}
@@ -173,12 +173,12 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask about AICTE deposit norms, 10-year lock-in, bank lien, or refund..."
-            className="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-600"
           />
           <button
             type="submit"
             disabled={!input.trim() || loading}
-            className="p-2 bg-[#0B3558] hover:bg-[#07243c] disabled:opacity-40 text-white rounded-lg transition-colors shadow-sm"
+            className="p-2 bg-[#C2410C] hover:bg-[#9A3412] disabled:opacity-40 text-white rounded-lg transition-colors shadow-sm"
           >
             <Send className="w-4 h-4" />
           </button>

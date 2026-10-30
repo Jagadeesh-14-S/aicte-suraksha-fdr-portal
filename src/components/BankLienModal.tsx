@@ -57,21 +57,21 @@ export const BankLienModal: React.FC<BankLienModalProps> = ({ fdr, onClose }) =>
     <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="w-full max-w-2xl bg-white border border-slate-300 rounded-xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden text-slate-800">
         {/* Header */}
-        <div className="p-4 bg-[#0B3558] text-white flex items-center justify-between border-b border-[#07243c]">
+        <div className="p-4 bg-slate-900 text-white flex items-center justify-between border-b border-slate-800">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white">
+            <div className="w-10 h-10 rounded-lg bg-orange-600/20 flex items-center justify-center text-orange-400">
               <Landmark className="w-6 h-6" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-white">Core Banking (CBS) & NeSL e-BG Verification</h3>
-              <p className="text-xs text-blue-100">
+              <p className="text-xs text-slate-300">
                 Bidirectional Lien Registration Protocol • ISO 20022 camt.053 Ready
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-blue-200 hover:text-white rounded-lg hover:bg-white/10"
+            className="p-1.5 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800"
           >
             <X className="w-5 h-5" />
           </button>
@@ -115,7 +115,7 @@ export const BankLienModal: React.FC<BankLienModalProps> = ({ fdr, onClose }) =>
                 type="button"
                 onClick={handleQueryCbs}
                 disabled={loading}
-                className="px-5 py-2.5 bg-[#0B3558] hover:bg-[#07243c] text-white rounded-lg text-xs font-semibold inline-flex items-center space-x-2 shadow-sm transition-all"
+                className="px-5 py-2.5 bg-[#C2410C] hover:bg-[#9A3412] text-white rounded-lg text-xs font-semibold inline-flex items-center space-x-2 shadow-xs transition-all"
               >
                 <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                 <span>{loading ? 'Querying Bank CBS Server...' : 'Query Bank CBS Live Interface'}</span>
@@ -197,7 +197,7 @@ export const BankLienModal: React.FC<BankLienModalProps> = ({ fdr, onClose }) =>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 bg-[#0B3558] hover:bg-[#07243c] text-white font-semibold rounded-lg text-xs"
+                  className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-lg text-xs"
                 >
                   Close & Refresh Dashboard
                 </button>

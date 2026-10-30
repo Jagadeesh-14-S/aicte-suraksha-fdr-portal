@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 import { FdrInstrument } from '../types';
 
 interface ScrutinyBureauProps {
@@ -24,6 +25,7 @@ export const ScrutinyBureau: React.FC<ScrutinyBureauProps> = ({
 }) => {
   const { fdrList } = useApp();
   const { currentUser } = useAuth();
+  const { t } = useLanguage();
 
   const [activeTab, setActiveTab] = useState<'DISCREPANCIES' | 'ALL_PENDING' | 'CLEARED'>('DISCREPANCIES');
 
@@ -40,7 +42,7 @@ export const ScrutinyBureau: React.FC<ScrutinyBureauProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-bold text-[#0B3558] uppercase tracking-wider mb-1">
+          <div className="flex items-center space-x-2 text-xs font-bold text-[#C2410C] uppercase tracking-wider mb-1">
             <FileSearch className="w-4 h-4 text-amber-700" />
             <span>AICTE Approval Process Handbook • Regional Scrutiny Bureau</span>
           </div>
@@ -68,7 +70,7 @@ export const ScrutinyBureau: React.FC<ScrutinyBureauProps> = ({
             onClick={() => setActiveTab('ALL_PENDING')}
             className={`px-3 py-1.5 rounded-md font-bold transition-all ${
               activeTab === 'ALL_PENDING'
-                ? 'bg-[#0B3558] text-white shadow-sm'
+                ? 'bg-slate-800 text-white shadow-sm'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -140,7 +142,7 @@ export const ScrutinyBureau: React.FC<ScrutinyBureauProps> = ({
                   </button>
                   <button
                     onClick={() => onInspectFdr(fdr.id)}
-                    className="px-4 py-1.5 bg-[#0B3558] hover:bg-[#124b7a] text-white rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow transition-colors"
+                    className="px-4 py-1.5 bg-[#C2410C] hover:bg-[#9A3412] text-white rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow transition-colors"
                   >
                     <Eye className="w-3.5 h-3.5" />
                     <span>Launch Forensics Inspector</span>

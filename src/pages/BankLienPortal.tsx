@@ -114,7 +114,7 @@ export const BankLienPortal: React.FC = () => {
               <button
                 type="submit"
                 disabled={queryLoading}
-                className="px-4 py-2 bg-[#0B3558] hover:bg-[#07243c] text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-all"
+                className="px-4 py-2 bg-[#C2410C] hover:bg-[#9A3412] text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-xs transition-all"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${queryLoading ? 'animate-spin' : ''}`} />
                 <span>{queryLoading ? 'Connecting...' : 'Query CBS Gateway'}</span>
