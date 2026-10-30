@@ -9,7 +9,8 @@ import {
   Binary, 
   GraduationCap,
   ShieldCheck,
-  ChevronRight
+  Building,
+  UserCheck
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
@@ -31,7 +32,7 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onSelectTab }) => {
   const { currentUser } = useAuth();
-  const { fdrList, notifications } = useApp();
+  const { fdrList } = useApp();
 
   const flaggedCount = fdrList.filter(f => f.status === 'DISCREPANCY_FLAGGED').length;
   const maturingCount = fdrList.filter(f => f.status === 'MATURING_SOON' || f.status === 'MATURED').length;
@@ -46,42 +47,42 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onSelectTab }) => 
     },
     {
       id: 'repository' as NavTab,
-      label: 'FDR Repository',
+      label: 'FDR Master Repository',
       icon: FolderKanban,
       badge: fdrList.length
     },
     {
       id: 'scrutiny' as NavTab,
-      label: 'Scrutiny & OCR Bureau',
+      label: 'Scrutiny Bureau (RO)',
       icon: FileSearch,
-      badge: flaggedCount > 0 ? `${flaggedCount} Flagged` : null,
-      badgeColor: 'bg-rose-500 text-white'
+      badge: flaggedCount > 0 ? `${flaggedCount} Case${flaggedCount > 1 ? 's' : ''}` : null,
+      badgeColor: 'bg-red-600 text-white'
     },
     {
       id: 'bank-portal' as NavTab,
-      label: 'Bank Lien & CBS Hub',
+      label: 'Core Banking (CBS) Gateway',
       icon: Landmark,
-      badge: 'Live NeSL'
+      badge: 'NeSL'
     },
     {
       id: 'maturity' as NavTab,
-      label: 'Maturity & Alert Radar',
+      label: 'Maturity & Validity Radar',
       icon: ClockAlert,
       badge: maturingCount > 0 ? `${maturingCount} Alerts` : null,
-      badgeColor: 'bg-amber-500 text-slate-900'
+      badgeColor: 'bg-amber-600 text-white'
     },
     {
       id: 'release' as NavTab,
       label: 'Release & Refund Portal',
       icon: FileCheck,
       badge: releasePendingCount > 0 ? `${releasePendingCount} Pending` : null,
-      badgeColor: 'bg-emerald-500 text-slate-900'
+      badgeColor: 'bg-emerald-600 text-white'
     },
     {
       id: 'ledger' as NavTab,
-      label: 'Immutable Audit Ledger',
+      label: 'Regulatory Audit Ledger',
       icon: Binary,
-      badge: 'Merkle SHA-256'
+      badge: 'CAG Proof'
     },
     {
       id: 'research' as NavTab,
@@ -92,24 +93,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onSelectTab }) => 
   ];
 
   return (
-    <aside className="w-64 bg-slate-900 text-slate-300 border-r border-slate-800 flex flex-col justify-between shrink-0">
+    <aside className="w-64 bg-[#0B3558] text-slate-100 border-r border-[#082842] flex flex-col justify-between shrink-0 shadow-md">
       <div className="p-4">
-        {/* User Card */}
-        <div className="p-3 bg-slate-800/80 rounded-xl border border-slate-700 mb-6">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center font-bold text-white text-sm">
+        {/* Officer Profile Card */}
+        <div className="p-3 bg-[#082842] rounded-lg border border-[#13446e] mb-5 text-xs">
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-full bg-[#1b4e7a] border border-[#2a689f] flex items-center justify-center font-bold text-amber-300 text-xs">
               {currentUser.name.split(' ').map(n => n[0]).slice(0, 2).join('')}
             </div>
             <div className="overflow-hidden">
-              <h4 className="text-xs font-bold text-white truncate">{currentUser.name}</h4>
-              <p className="text-[11px] text-amber-400 font-medium truncate">{currentUser.role.replace('_', ' ')}</p>
+              <h4 className="text-xs font-bold text-white truncate leading-tight">{currentUser.name}</h4>
+              <p className="text-[10px] text-amber-300 font-semibold truncate mt-0.5">{currentUser.role.replace(/_/g, ' ')}</p>
             </div>
           </div>
           {currentUser.region && (
-            <div className="mt-2 text-[10px] bg-slate-900/80 px-2 py-0.5 rounded text-blue-300 font-mono">
-              Region: {currentUser.region}
+            <div className="mt-2 text-[10px] bg-[#051c2f] px-2 py-0.5 rounded text-slate-300 font-mono flex items-center space-x-1">
+              <Building className="w-3 h-3 text-amber-400 shrink-0" />
+              <span className="truncate">Jurisdiction: {currentUser.region.split('_')[0]}</span>
             </div>
           )}
+        </div>
+
+        {/* Section Heading */}
+        <div className="px-2 pb-2 text-[10px] uppercase font-bold text-slate-300 tracking-wider">
+          Regulatory Portals
         </div>
 
         {/* Navigation list */}
@@ -122,20 +129,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onSelectTab }) => 
               <button
                 key={item.id}
                 onClick={() => onSelectTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium transition-all ${
+                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium transition-colors ${
                   isActive
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-900/40 font-semibold'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                    ? 'bg-[#1b4e7a] text-white font-bold border-l-4 border-amber-400 shadow-inner'
+                    : 'text-slate-200 hover:text-white hover:bg-[#0e3b61]'
                 }`}
               >
-                <div className="flex items-center space-x-3">
-                  <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-                  <span>{item.label}</span>
+                <div className="flex items-center space-x-2.5">
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-amber-300' : 'text-slate-300'}`} />
+                  <span className="truncate">{item.label}</span>
                 </div>
                 {item.badge && (
                   <span
-                    className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
-                      item.badgeColor || 'bg-slate-800 text-slate-300'
+                    className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                      item.badgeColor || 'bg-[#082842] text-slate-300 border border-[#13446e]'
                     }`}
                   >
                     {item.badge}
@@ -147,17 +154,16 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, onSelectTab }) => 
         </nav>
       </div>
 
-      {/* Compliance Footer Banner */}
-      <div className="p-4 border-t border-slate-800 bg-slate-950/50">
-        <div className="flex items-center space-x-2 text-[11px] text-slate-400">
-          <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span>Statutory Compliance: AICTE APH 2024-27</span>
+      {/* Official Government Statutory Footer */}
+      <div className="p-4 border-t border-[#082842] bg-[#072238] text-[10px] text-slate-300 space-y-1">
+        <div className="flex items-center space-x-1.5 font-semibold text-slate-200">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          <span>AICTE APH 2024-27 Norms</span>
         </div>
-        <p className="text-[10px] text-slate-500 mt-1">
-          Cryptographic Merkle State Root & NeSL e-BG Interoperable
+        <p className="text-slate-400 text-[9px] leading-tight">
+          Ministry of Education, Govt of India • Regulation Bureau (New Delhi)
         </p>
       </div>
     </aside>
   );
 };
-

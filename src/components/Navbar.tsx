@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { 
-  ShieldCheck, 
   Bell, 
   Bot, 
   RotateCcw, 
   ChevronDown, 
-  UserCheck, 
   Building2, 
   Landmark, 
   FileCheck2,
-  AlertTriangle,
-  Database
+  ShieldCheck,
+  Database,
+  Globe,
+  SlidersHorizontal,
+  ExternalLink
 } from 'lucide-react';
 import { useAuth, PRESET_USERS } from '../context/AuthContext';
 import { useApp } from '../context/AppContext';
 import { UserRole } from '../types';
+import { IndiaEmblem, AicteEmblem } from './Emblems';
 
 interface NavbarProps {
   onOpenCopilot: () => void;
@@ -22,18 +24,24 @@ interface NavbarProps {
   onOpenSupabase: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotifications, onOpenSupabase }) => {
+export const Navbar: React.FC<NavbarProps> = ({ 
+  onOpenCopilot, 
+  onOpenNotifications, 
+  onOpenSupabase 
+}) => {
   const { currentUser, switchRole } = useAuth();
   const { notifications, resetToDefault, backendConnected } = useApp();
   const [roleDropdownOpen, setRoleDropdownOpen] = useState(false);
+  const [fontSize, setFontSize] = useState<'sm' | 'md' | 'lg'>('md');
+  const [lang, setLang] = useState<'EN' | 'HI'>('EN');
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
   const roleIcons: Record<UserRole, React.ReactNode> = {
-    BUREAU_ADMIN: <ShieldCheck className="w-4 h-4 text-amber-400" />,
-    REGIONAL_OFFICER: <Building2 className="w-4 h-4 text-blue-400" />,
-    INSTITUTION_USER: <FileCheck2 className="w-4 h-4 text-emerald-400" />,
-    BANK_OFFICER: <Landmark className="w-4 h-4 text-purple-400" />
+    BUREAU_ADMIN: <ShieldCheck className="w-4 h-4 text-blue-700" />,
+    REGIONAL_OFFICER: <Building2 className="w-4 h-4 text-amber-700" />,
+    INSTITUTION_USER: <FileCheck2 className="w-4 h-4 text-emerald-700" />,
+    BANK_OFFICER: <Landmark className="w-4 h-4 text-purple-700" />
   };
 
   const roleLabels: Record<UserRole, string> = {
@@ -44,123 +52,174 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotificatio
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-900 border-b border-slate-800 text-white shadow-md">
-      {/* Sovereign National Top Bar */}
-      <div className="bg-gradient-to-r from-amber-600 via-slate-900 to-emerald-700 px-4 py-1 text-xs font-medium flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <span className="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-          <span>Government of India • Ministry of Education • AICTE Regulation Bureau</span>
+    <header className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+      {/* 1. Official Government of India Top Utility Bar */}
+      <div className="bg-slate-100 border-b border-slate-200 text-slate-700 text-[11px] px-4 sm:px-8 py-1.5 flex items-center justify-between font-sans">
+        {/* Left: Sovereign National Identity */}
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-1.5 text-slate-800 font-semibold">
+            <span className="font-serif">भारत सरकार</span>
+            <span className="text-slate-400">|</span>
+            <span>Government of India</span>
+          </div>
+          <span className="hidden md:inline text-slate-400">•</span>
+          <div className="hidden md:flex items-center space-x-1 text-slate-600">
+            <span>शिक्षा मंत्रालय</span>
+            <span className="text-slate-400">|</span>
+            <span>Ministry of Education</span>
+          </div>
         </div>
-        <div className="hidden md:flex items-center space-x-4 text-slate-300">
-          <span>Problem ID: 26265</span>
-          <span>•</span>
-          <span>Smart Automation Portal</span>
-          <span>•</span>
-          <span className="font-mono text-amber-300">ISO 20022 & NeSL e-BG Ready</span>
+
+        {/* Right: Official GoI Accessibility & Language Strip */}
+        <div className="flex items-center space-x-3 sm:space-x-4 text-[11px]">
+          <a 
+            href="#main-content" 
+            className="hidden sm:inline text-slate-600 hover:text-blue-900 underline transition-colors"
+          >
+            Skip to Main Content
+          </a>
+          <span className="hidden sm:inline text-slate-300">|</span>
+          <span className="hidden sm:inline text-slate-600">Screen Reader Access</span>
+          <span className="hidden sm:inline text-slate-300">|</span>
+          
+          {/* Font Resizing Controls (Official GoI Standard) */}
+          <div className="flex items-center space-x-1 font-bold text-slate-600">
+            <button 
+              onClick={() => setFontSize('sm')} 
+              className={`px-1 rounded hover:bg-slate-200 ${fontSize === 'sm' ? 'text-blue-900 underline' : ''}`}
+              title="Decrease Font Size"
+            >
+              A-
+            </button>
+            <button 
+              onClick={() => setFontSize('md')} 
+              className={`px-1 rounded hover:bg-slate-200 ${fontSize === 'md' ? 'text-blue-900 underline' : ''}`}
+              title="Standard Font Size"
+            >
+              A
+            </button>
+            <button 
+              onClick={() => setFontSize('lg')} 
+              className={`px-1 rounded hover:bg-slate-200 ${fontSize === 'lg' ? 'text-blue-900 underline' : ''}`}
+              title="Increase Font Size"
+            >
+              A+
+            </button>
+          </div>
+          <span className="text-slate-300">|</span>
+
+          {/* Bilingual Switcher */}
+          <button 
+            onClick={() => setLang(lang === 'EN' ? 'HI' : 'EN')} 
+            className="flex items-center space-x-1 text-blue-900 font-semibold hover:underline"
+          >
+            <Globe className="w-3 h-3 text-blue-800" />
+            <span>{lang === 'EN' ? 'हिन्दी' : 'English'}</span>
+          </button>
         </div>
       </div>
 
-      {/* Main Navbar */}
-      <div className="px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-        {/* Brand Logo & Title */}
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-800 flex items-center justify-center shadow-lg border border-blue-400/30">
-            <ShieldCheck className="w-6 h-6 text-amber-300" />
-          </div>
+      {/* 2. Official Institutional Header (AICTE Emblem + Typography) */}
+      <div className="px-4 sm:px-8 py-3.5 bg-white flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Left: Official Emblems & Institutional Identity */}
+        <div className="flex items-center space-x-3.5">
+          <IndiaEmblem className="w-9 h-11 text-amber-900 shrink-0" />
+          <div className="h-10 w-[1px] bg-slate-300 mx-1 hidden sm:block"></div>
+          <AicteEmblem className="w-11 h-11 shrink-0" />
+          
           <div>
-            <div className="flex items-center space-x-2">
-              <span className="text-xl font-bold tracking-tight text-white font-mono">
-                AICTE-<span className="text-amber-400">SURAKSHA</span>
-              </span>
-              <span className="bg-blue-900/80 text-blue-300 text-[10px] uppercase font-semibold px-2 py-0.5 rounded border border-blue-700">
-                v2.4 Sovereign
-              </span>
+            <div className="leading-tight">
+              <h2 className="text-xs sm:text-sm font-bold text-slate-900 font-serif tracking-wide">
+                अखिल भारतीय तकनीकी शिक्षा परिषद
+              </h2>
+              <h1 className="text-sm sm:text-base font-extrabold text-[#0B3558] tracking-tight">
+                ALL INDIA COUNCIL FOR TECHNICAL EDUCATION
+              </h1>
+              <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-600 mt-0.5">
+                <span className="font-medium text-amber-800">विनियमन ब्यूरो | REGULATION BUREAU</span>
+                <span className="text-slate-300">•</span>
+                <span className="text-slate-500 font-medium">e-SURAKSHA FDR Portal</span>
+              </div>
             </div>
-            <p className="text-xs text-slate-400 hidden sm:block">
-              Unified Security Deposit & Fixed Deposit Receipt (FDR) Management Portal
-            </p>
           </div>
         </div>
 
-        {/* Right Action Cluster */}
-        <div className="flex items-center space-x-3 sm:space-x-4">
-          {/* Supabase / Backend Status Pill */}
+        {/* Right: Operational Controls & Officer Card */}
+        <div className="flex items-center space-x-2.5 sm:space-x-3 shrink-0 self-end md:self-center">
+          {/* Supabase Cloud DB Status */}
           <button
             onClick={onOpenSupabase}
-            className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-mono border bg-slate-950/80 border-slate-700 hover:border-emerald-500 text-slate-300 hover:text-white transition-all shadow-sm"
+            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg text-xs font-medium border border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors"
             title="Configure Supabase PostgreSQL / Cloud Backend"
           >
-            <Database className="w-3.5 h-3.5 text-emerald-400" />
-            <span className="hidden md:inline">Supabase DB</span>
+            <Database className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="hidden lg:inline text-[11px] font-semibold">PostgreSQL</span>
           </button>
 
-          {/* Backend Status Pill */}
-          <div className="hidden lg:flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono border bg-slate-950/70 border-slate-800">
-            <span className={`w-2 h-2 rounded-full ${backendConnected ? 'bg-emerald-400 animate-pulse' : 'bg-blue-400'}`}></span>
-            <span className={backendConnected ? 'text-emerald-400 font-semibold' : 'text-blue-300'}>
-              {backendConnected ? 'Backend API: Live (:5000)' : 'GitHub Pages Cloud Mode'}
-            </span>
-          </div>
-
-          {/* AICTE Copilot Button */}
+          {/* AICTE Regulatory Copilot */}
           <button
             onClick={onOpenCopilot}
-            className="flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white rounded-lg text-xs font-semibold shadow-md transition-all border border-indigo-400/40"
-            title="Ask AICTE Approval Process Handbook (APH) Regulatory Bot"
+            className="flex items-center space-x-1.5 px-3 py-1.5 bg-[#0B3558] hover:bg-[#124b7a] text-white rounded-lg text-xs font-semibold shadow-sm transition-colors"
+            title="AICTE Approval Process Handbook (APH) Regulatory Assistant"
           >
-            <Bot className="w-4 h-4 text-amber-300 animate-bounce" />
-            <span className="hidden md:inline">Suraksha AI Copilot</span>
-          </button>
-
-          {/* Reset Demo Data Button */}
-          <button
-            onClick={() => {
-              if (confirm('Reset prototype state to default AICTE records?')) {
-                resetToDefault();
-              }
-            }}
-            className="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors text-xs flex items-center"
-            title="Reset Mock State"
-          >
-            <RotateCcw className="w-4 h-4" />
+            <Bot className="w-3.5 h-3.5 text-amber-300" />
+            <span className="hidden sm:inline text-[11px]">Suraksha Copilot</span>
           </button>
 
           {/* Notification Bell */}
           <button
             onClick={onOpenNotifications}
-            className="relative p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
-            title="Automated Regulatory Alerts"
+            className="relative p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg border border-slate-300 transition-colors"
+            title="Regulatory Alerts & Deadlines"
           >
-            <Bell className="w-5 h-5" />
+            <Bell className="w-4 h-4" />
             {unreadCount > 0 && (
-              <span className="absolute top-1 right-1 w-4 h-4 bg-rose-600 text-[10px] font-bold rounded-full flex items-center justify-center text-white animate-pulse">
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-[10px] font-bold rounded-full flex items-center justify-center text-white">
                 {unreadCount}
               </span>
             )}
           </button>
 
-          {/* Role Switcher Dropdown */}
+          {/* Reset Demo Data Button */}
+          <button
+            onClick={() => {
+              if (confirm('Reset portal data to official AICTE sample records?')) {
+                resetToDefault();
+              }
+            }}
+            className="p-2 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-lg border border-slate-300 transition-colors"
+            title="Reset Mock State"
+          >
+            <RotateCcw className="w-3.5 h-3.5" />
+          </button>
+
+          {/* Official Stakeholder Role Switcher */}
           <div className="relative">
             <button
               onClick={() => setRoleDropdownOpen(!roleDropdownOpen)}
-              className="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700/80 px-3 py-1.5 rounded-lg border border-slate-700 text-xs transition-all"
+              className="flex items-center space-x-2 bg-slate-50 hover:bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-300 text-xs text-slate-800 transition-colors shadow-sm"
             >
               <div className="flex items-center space-x-1.5">
                 {roleIcons[currentUser.role]}
-                <span className="font-semibold text-slate-200 hidden sm:inline">
-                  {roleLabels[currentUser.role]}
-                </span>
+                <div className="text-left hidden sm:block">
+                  <div className="text-[11px] font-bold text-slate-900 leading-tight truncate max-w-[140px]">
+                    {currentUser.name}
+                  </div>
+                  <div className="text-[9px] text-slate-500 font-semibold uppercase">
+                    {roleLabels[currentUser.role]}
+                  </div>
+                </div>
               </div>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
             </button>
 
             {roleDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-72 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl py-2 z-50">
-                <div className="px-3 py-2 border-b border-slate-800">
-                  <p className="text-[10px] uppercase font-semibold text-slate-400 tracking-wider">
-                    Simulate Stakeholder Persona
+              <div className="absolute right-0 mt-2 w-72 bg-white border border-slate-200 rounded-xl shadow-xl py-2 z-50 text-slate-800">
+                <div className="px-3 py-2 border-b border-slate-100 bg-slate-50">
+                  <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                    Designated Stakeholder Login
                   </p>
-                  <p className="text-xs text-amber-300 font-medium truncate mt-0.5">
+                  <p className="text-xs text-[#0B3558] font-bold truncate mt-0.5">
                     {currentUser.title}
                   </p>
                 </div>
@@ -173,14 +232,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotificatio
                     }}
                     className={`w-full text-left px-3 py-2 text-xs flex items-center space-x-2.5 transition-colors ${
                       currentUser.role === r
-                        ? 'bg-blue-600/30 text-blue-300 border-l-4 border-blue-500 font-semibold'
-                        : 'text-slate-300 hover:bg-slate-800'
+                        ? 'bg-blue-50 text-blue-900 border-l-4 border-[#0B3558] font-bold'
+                        : 'text-slate-700 hover:bg-slate-50'
                     }`}
                   >
                     {roleIcons[r]}
                     <div>
-                      <div className="font-medium">{roleLabels[r]}</div>
-                      <div className="text-[10px] text-slate-400 truncate">
+                      <div className="font-semibold text-xs">{roleLabels[r]}</div>
+                      <div className="text-[10px] text-slate-500 truncate">
                         {PRESET_USERS[r].name}
                       </div>
                     </div>
@@ -191,7 +250,13 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCopilot, onOpenNotificatio
           </div>
         </div>
       </div>
+
+      {/* 3. Official Sovereign Tri-color Ribbon Accent (Signature of Indian Govt Portals) */}
+      <div className="h-[3px] w-full flex">
+        <div className="w-1/3 bg-[#FF9933]"></div>
+        <div className="w-1/3 bg-white"></div>
+        <div className="w-1/3 bg-[#138808]"></div>
+      </div>
     </header>
   );
 };
-

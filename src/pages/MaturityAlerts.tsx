@@ -10,7 +10,9 @@ import {
   MessageSquare, 
   PhoneCall,
   FileCheck2,
-  Bell
+  Bell,
+  CheckCircle,
+  AlertCircle
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useAuth } from '../context/AuthContext';
@@ -72,169 +74,139 @@ export const MaturityAlerts: React.FC<MaturityAlertsProps> = ({
 
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Official Government Header Banner */}
+      <div className="bg-white border border-slate-200/90 rounded-xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-semibold text-amber-400 uppercase tracking-wider mb-1">
-            <ClockAlert className="w-4 h-4" />
-            <span>Automated Timeline & Predictive Escalations</span>
+          <div className="flex items-center space-x-2 text-xs font-semibold text-amber-800 uppercase tracking-wider mb-1">
+            <ClockAlert className="w-4 h-4 text-amber-600" />
+            <span>Automated Timeline & Predictive Escalations Module</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            Maturity & Validity Tracking Radar
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+            Security Deposit Validity & Maturity Tracker
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Real-time tracking of 8-10 year lock-in tenures, advance reminder dispatches, and renewal compliance.
+          <p className="text-xs text-slate-600 mt-1">
+            Predictive tracking for 10-year lock-ins, automatic 90-60-30 day alerts, and escalation triggers under AICTE Approval Process Handbook (APH).
           </p>
+        </div>
+        <div className="flex items-center space-x-2 shrink-0">
+          <span className="text-xs text-slate-700 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-lg font-medium">
+            Next Cron Sweep: <strong>23:59 IST (Daily)</strong>
+          </span>
         </div>
       </div>
 
-      {/* Escalation Tier Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Tier 1: Overdue */}
-        <div className="bg-rose-950/30 border border-rose-800 rounded-2xl p-4 space-y-2">
-          <div className="flex items-center justify-between text-rose-400">
-            <span className="text-xs font-bold uppercase tracking-wider">Overdue (&gt; 10 Years)</span>
-            <span className="text-lg font-bold font-mono">{overdueList.length}</span>
+      {/* Escalation Category Metrics */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white border border-rose-200 rounded-xl p-4 shadow-sm flex items-center justify-between border-l-4 border-l-rose-600">
+          <div>
+            <span className="text-xs font-semibold text-rose-700 uppercase tracking-wider block">Overdue / Matured</span>
+            <span className="text-2xl font-bold text-slate-900 mt-1 block">{overdueList.length}</span>
+            <span className="text-[11px] text-slate-500">Requires immediate renewal / release</span>
           </div>
-          <p className="text-[11px] text-slate-300">
-            Statutory lock-in expired. Immediate renewal or authorized refund processing mandated.
-          </p>
+          <AlertCircle className="w-8 h-8 text-rose-600/60" />
         </div>
 
-        {/* Tier 2: Imminent 30 Days */}
-        <div className="bg-amber-950/30 border border-amber-800 rounded-2xl p-4 space-y-2">
-          <div className="flex items-center justify-between text-amber-400">
-            <span className="text-xs font-bold uppercase tracking-wider">Matures in &le; 30 Days</span>
-            <span className="text-lg font-bold font-mono">{imminent30List.length}</span>
+        <div className="bg-white border border-amber-200 rounded-xl p-4 shadow-sm flex items-center justify-between border-l-4 border-l-amber-500">
+          <div>
+            <span className="text-xs font-semibold text-amber-800 uppercase tracking-wider block">Expiring &lt; 30 Days</span>
+            <span className="text-2xl font-bold text-slate-900 mt-1 block">{imminent30List.length}</span>
+            <span className="text-[11px] text-slate-500">Tier-3 SMS & Notice active</span>
           </div>
-          <p className="text-[11px] text-slate-300">
-            Omnichannel alerts (SMS, Email, WhatsApp) dispatched automatically every 72 hours.
-          </p>
+          <AlertTriangle className="w-8 h-8 text-amber-500/60" />
         </div>
 
-        {/* Tier 3: 90 Days Warning */}
-        <div className="bg-blue-950/30 border border-blue-800 rounded-2xl p-4 space-y-2">
-          <div className="flex items-center justify-between text-blue-400">
-            <span className="text-xs font-bold uppercase tracking-wider">Advance Notice (&le; 90 Days)</span>
-            <span className="text-lg font-bold font-mono">{warning90List.length}</span>
+        <div className="bg-white border border-yellow-200 rounded-xl p-4 shadow-sm flex items-center justify-between border-l-4 border-l-yellow-500">
+          <div>
+            <span className="text-xs font-semibold text-yellow-800 uppercase tracking-wider block">Expiring 31–90 Days</span>
+            <span className="text-2xl font-bold text-slate-900 mt-1 block">{warning90List.length}</span>
+            <span className="text-[11px] text-slate-500">Advance reminder sent</span>
           </div>
-          <p className="text-[11px] text-slate-300">
-            T-90 reminder triggered to trust management for board resolution on renewal or release.
-          </p>
+          <ClockAlert className="w-8 h-8 text-yellow-600/60" />
+        </div>
+
+        <div className="bg-white border border-emerald-200 rounded-xl p-4 shadow-sm flex items-center justify-between border-l-4 border-l-emerald-600">
+          <div>
+            <span className="text-xs font-semibold text-emerald-800 uppercase tracking-wider block">Compliant (&gt; 90 Days)</span>
+            <span className="text-2xl font-bold text-slate-900 mt-1 block">{safeList.length}</span>
+            <span className="text-[11px] text-slate-500">Within valid regulatory term</span>
+          </div>
+          <CheckCircle className="w-8 h-8 text-emerald-600/60" />
         </div>
       </div>
 
-      {/* Actionable Maturity Queue */}
-      <div className="space-y-4">
-        <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-          Instruments Requiring Imminent Regulatory Action
-        </h3>
-
-        {[...overdueList, ...imminent30List, ...warning90List].length === 0 ? (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-12 text-center text-slate-500">
-            <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
-            <p className="text-sm font-bold text-white">No Imminent Expiries</p>
-            <p className="text-xs text-slate-400 mt-1">All fixed deposits have healthy tenures exceeding 90 days.</p>
+      {/* Main Action List */}
+      <div className="bg-white border border-slate-200/90 rounded-xl shadow-sm overflow-hidden">
+        <div className="p-4 border-b border-slate-200 bg-slate-50/70 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Bell className="w-4 h-4 text-blue-700" />
+            <h2 className="text-sm font-bold text-slate-800 uppercase tracking-wide">
+              Time-Sensitive Instruments Requiring Administrative Follow-Up
+            </h2>
           </div>
-        ) : (
-          [...overdueList, ...imminent30List, ...warning90List].map(({ fdr, daysDiff }) => (
-            <div
-              key={fdr.id}
-              className={`bg-slate-900 border rounded-2xl p-5 shadow-sm space-y-4 ${
-                daysDiff < 0
-                  ? 'border-rose-800/80 bg-rose-950/20'
-                  : daysDiff <= 30
-                  ? 'border-amber-800/80 bg-amber-950/20'
-                  : 'border-slate-800'
-              }`}
-            >
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                <div>
-                  <div className="flex items-center space-x-2">
-                    <span className="font-bold text-sm text-white">{fdr.institutionName}</span>
-                    <span className="font-mono text-xs text-amber-400 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
-                      {fdr.fdrNumber}
-                    </span>
-                    {daysDiff < 0 ? (
-                      <span className="text-[10px] bg-rose-950 text-rose-300 font-bold px-2.5 py-0.5 rounded-full border border-rose-800 animate-pulse">
-                        OVERDUE ({Math.abs(daysDiff)} DAYS)
-                      </span>
-                    ) : (
-                      <span className="text-[10px] bg-amber-950 text-amber-300 font-bold px-2.5 py-0.5 rounded-full border border-amber-800">
-                        {daysDiff} DAYS REMAINING
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-xs text-slate-400 mt-1 flex items-center space-x-4">
-                    <span>Maturity Date: <strong className="text-white font-mono">{fdr.maturityDate}</strong></span>
-                    <span>•</span>
-                    <span>Deposit: <strong className="text-emerald-400 font-mono">₹ {(fdr.depositAmount / 100000).toFixed(1)} Lakhs</strong></span>
-                    <span>•</span>
-                    <span>Bank: <strong className="text-slate-300">{fdr.bankName}</strong></span>
-                  </div>
-                </div>
+          <span className="text-xs text-slate-500">
+            Total Monitored: {fdrList.length} Instruments
+          </span>
+        </div>
 
-                {/* Actions */}
-                <div className="flex items-center space-x-2 shrink-0">
-                  <button
-                    onClick={() => handleDispatchNotice(fdr.id)}
-                    className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 flex items-center space-x-1.5 transition-colors"
-                  >
-                    <Send className="w-3.5 h-3.5 text-blue-400" />
-                    <span>
-                      {dispatchedId === fdr.id ? 'Notice Dispatched!' : 'Dispatch Notice (SMS/Email)'}
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={() => setRenewingId(renewingId === fdr.id ? null : fdr.id)}
-                    className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-colors"
-                  >
-                    <RotateCw className="w-3.5 h-3.5" />
-                    <span>Record Renewal</span>
-                  </button>
-
-                  <button
-                    onClick={() => onOpenRefund(fdr)}
-                    className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow-md transition-colors"
-                  >
-                    <FileCheck2 className="w-3.5 h-3.5" />
-                    <span>Process Release</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Inline Renewal Drawer */}
-              {renewingId === fdr.id && (
-                <div className="p-4 bg-slate-800 rounded-xl border border-slate-700 space-y-3 text-xs animate-in slide-in-from-top-2">
-                  <h4 className="font-bold text-white">Record Statutory 10-Year Renewal</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="text-slate-400 block mb-1">New Maturity Date</label>
-                      <input
-                        type="date"
-                        value={newMaturityDate}
-                        onChange={e => setNewMaturityDate(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white"
-                      />
-                    </div>
-                    <div className="flex items-end">
-                      <button
-                        type="button"
-                        onClick={() => handleRenew(fdr.id)}
-                        className="w-full py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-md"
-                      >
-                        Confirm Renewal & Update Merkle Ledger
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
+        <div className="divide-y divide-slate-100">
+          {[...overdueList, ...imminent30List, ...warning90List].length === 0 ? (
+            <div className="p-8 text-center text-slate-500 text-xs">
+              <CheckCircle className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
+              All instruments have healthy maturity validity. No pending expirations within 90 days.
             </div>
-          ))
-        )}
+          ) : (
+            [...overdueList, ...imminent30List, ...warning90List].map(({ fdr, daysDiff }) => {
+              const isOverdue = daysDiff < 0;
+              const isImminent = daysDiff >= 0 && daysDiff <= 30;
+
+              return (
+                <div key={fdr.id} className="p-4 hover:bg-slate-50/60 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className={`px-2 py-0.5 rounded text-[11px] font-bold border ${
+                        isOverdue 
+                          ? 'bg-rose-100 text-rose-800 border-rose-200' 
+                          : isImminent 
+                            ? 'bg-amber-100 text-amber-800 border-amber-200' 
+                            : 'bg-yellow-100 text-yellow-800 border-yellow-200'
+                      }`}>
+                        {isOverdue ? `EXPIRED (${Math.abs(daysDiff)} DAYS AGO)` : `MATURING IN ${daysDiff} DAYS`}
+                      </span>
+                      <span className="font-mono text-xs font-bold text-slate-800">{fdr.fdrNumber}</span>
+                      <span className="text-xs text-slate-500">• {fdr.bankName}</span>
+                    </div>
+                    <div className="font-semibold text-slate-900 text-sm">{fdr.institutionName}</div>
+                    <div className="text-xs text-slate-600 flex items-center space-x-4">
+                      <span>Maturity Date: <strong className="text-slate-800">{fdr.maturityDate}</strong></span>
+                      <span>Amount: <strong className="text-slate-800 font-mono">₹ {(fdr.depositAmount / 100000).toFixed(1)} Lakhs</strong></span>
+                      <span>Region: <strong className="text-slate-800">{fdr.region}</strong></span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2 shrink-0">
+                    <button
+                      onClick={() => handleDispatchNotice(fdr.id)}
+                      disabled={dispatchedId === fdr.id}
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg text-xs font-semibold flex items-center space-x-1.5 transition-colors"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-slate-600" />
+                      <span>{dispatchedId === fdr.id ? 'Notice Dispatched ✓' : 'Dispatch Regulatory Notice'}</span>
+                    </button>
+
+                    <button
+                      onClick={() => onOpenRefund(fdr)}
+                      className="px-3.5 py-1.5 bg-[#0B3558] hover:bg-[#07243c] text-white rounded-lg text-xs font-semibold flex items-center space-x-1.5 shadow-sm transition-colors"
+                    >
+                      <FileCheck2 className="w-3.5 h-3.5" />
+                      <span>Process Release / Renewal</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
     </div>
   );
 };
-

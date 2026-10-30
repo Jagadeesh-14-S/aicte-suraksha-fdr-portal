@@ -27,7 +27,7 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'assistant',
-      text: "Namaste! I am your AICTE-SURAKSHA Regulatory AI Copilot, trained on the AICTE Approval Process Handbook (APH 2024-27) and Indian Banking Lien norms. How can I assist you with Fixed Deposit Receipts, security deposit norms, discrepancy resolution, or refund workflows today?",
+      text: "Namaste! I am the AICTE-SURAKSHA Regulatory Virtual Assistant, indexed on the AICTE Approval Process Handbook (APH) and Scheduled Commercial Banking Lien procedures. How may I assist you with Fixed Deposit Receipts, deposit norms, discrepancy resolution, or refund workflows today?",
       sourceDoc: 'AICTE Approval Process Handbook (APH) Chapters 1 & 2',
       chips: [
         'What is the deposit norm for Engineering?',
@@ -53,44 +53,25 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
 
     setTimeout(() => {
       let reply = '';
-      let source = 'AICTE APH 2024-27';
+      let source = 'AICTE APH Guidelines';
 
       const q = textToSend.toLowerCase();
 
       if (q.includes('engineering') || q.includes('norm') || q.includes('amount') || q.includes('how much')) {
-        reply = `**Security Deposit Norms for Technical Institutions (AICTE APH Clause 1.4.2):**\n\n` +
-          `• **Engineering & Technology (UG/Integrated):** ₹35,00,000 (₹28,00,000 for Women/SC/ST/NER/J&K concessions).\n` +
-          `• **Management (MBA/PGDM):** ₹15,00,000.\n` +
-          `• **Pharmacy (B.Pharm):** ₹15,00,000.\n` +
-          `• **Computer Applications (MCA):** ₹15,00,000.\n` +
-          `• **Polytechnic Diploma:** ₹15,00,000.\n\n` +
-          `**Mandatory Tenure:** Minimum 8 to 10 years lock-in period. Interest accrued periodically is designated for student welfare and institutional scholarships.`;
-        source = 'AICTE APH Chapter 1, Section 1.4.2 & Appendix 14';
-      } else if (q.includes('lien') || q.includes('bank') || q.includes('cbs') || q.includes('encash')) {
-        reply = `**Bank Lien Marking Protocol & Non-Encashment Mandate:**\n\n` +
-          `1. The Fixed Deposit Receipt must be registered in the **joint names** of the Trust/Society Chairperson/Secretary AND the **Regional Officer, AICTE**.\n` +
-          `2. **Lien Clause:** Scheduled Commercial Banks must mark an absolute, non-encashable lien in favor of AICTE in their Core Banking System (CBS).\n` +
-          `3. **Prohibition:** Banks are strictly prohibited from allowing premature encashment, loan/overdraft creation, or assignment without prior explicit written sanction / NOC from AICTE.`;
-        source = 'AICTE Joint Operating Circular & Banking Regulation Act Sec 45';
-      } else if (q.includes('refund') || q.includes('release') || q.includes('10 year')) {
-        reply = `**FDR Release & Refund Mandatory Checklist:**\n\n` +
-          `Upon completion of the 10-year term (or formal closure of the institution), the applicant trust must submit:\n` +
-          `1. Formal application on AICTE Web Portal.\n` +
-          `2. **Prescribed Affidavit** sworn before an Executive / Judicial Magistrate affirming no pending litigation, faculty salary dues, or student grievances.\n` +
-          `3. Original FDR document / Bank Lien discharge confirmation.\n` +
-          `4. No-Dues Certificate from the concerned State Government / Affiliating University.\n\n` +
-          `The release requires joint recommendation by the Regional Officer (RO) and final sanction by the Regulation Bureau, New Delhi.`;
-        source = 'AICTE APH Chapter 2, Clause 2.18: Release of Security Deposit';
-      } else if (q.includes('ela') || q.includes('forgery') || q.includes('tamper') || q.includes('fake')) {
-        reply = `**Error Level Analysis (ELA) & Multimodal Forensics:**\n\n` +
-          `Based on Al-Sumaidaee et al. (Elsevier FSIDI 2020), digital document tampering leaves telltale compression signatures:\n` +
-          `• When an institution alters numbers (e.g., modifying ₹5,00,000 to ₹15,00,000 in an image editor), the edited pixels undergo an extra JPEG compression cycle.\n` +
-          `• SURAKSHA's ELA engine re-saves the image at a known quality level and computes pixel-wise residual error delta.\n` +
-          `• Spliced fonts, altered dates, and counterfeit rubber stamps glow bright in the ELA heatmap, automatically triggering a **CRITICAL FORGERY ALERT** before the Regional Officer.`;
-        source = 'Elsevier FSIDI 2020 & SURAKSHA Neuro-Symbolic Verification Engine';
+        reply = `Under AICTE Approval Process Handbook Chapter II:\n\n• New Technical Institution (Engineering & Technology): ₹35 Lakhs security deposit.\n• Pharmacy / Architecture / Management / MCA: ₹15 Lakhs to ₹25 Lakhs depending on category.\n• Must be maintained as Fixed Deposit Receipt (FDR) for a mandatory lock-in period of 10 years, pledged jointly in the name of the Applicant Society/Trust and the Regional Officer, AICTE.`;
+        source = 'AICTE APH Appendix 4: Norms for Land and Security Deposits';
+      } else if (q.includes('lien') || q.includes('bank') || q.includes('nesl')) {
+        reply = `AICTE-SURAKSHA mandates bidirectional lien confirmation via Core Banking Solution (CBS) APIs using ISO 20022 camt.053 standard or NeSL e-BG repository:\n\n1. The issuing bank's Finacle/BaNCS core marks an absolute encumbrance prohibiting encashment, premature withdrawal, or loan against FDR without AICTE's explicit digital sanction.\n2. Both the Trust and AICTE RO appear as joint holders with AICTE holding the exclusive lien privilege.`;
+        source = 'AICTE Statutory Circular: Security Deposit Preservation & RBI CBS Protocol';
+      } else if (q.includes('refund') || q.includes('release') || q.includes('mature') || q.includes('10')) {
+        reply = `Security Deposit Release follows the AICTE 4-Stage Regulatory Architecture:\n\n1. Institution submits release dossier (10-year term completion proof, non-liability affidavit, university NOC).\n2. Regional Officer conducts scrutiny audit and issues clearance.\n3. Regulation Bureau (Central AICTE) issues official Sanction Order.\n4. Issuing bank CBS automatically discharges lien and credits principal to verified institution account via RTGS/NEFT.`;
+        source = 'AICTE APH Clause 2.18: Procedure for Refund of Security Deposit';
+      } else if (q.includes('ela') || q.includes('forg') || q.includes('tamper') || q.includes('fake')) {
+        reply = `Error Level Analysis (ELA) detects digital tampering by analyzing compression error deltas:\n\n• Resaved and edited JPEG/PDF artifacts exhibit higher high-frequency noise levels.\n• When an FDR receipt has altered deposit amounts, maturity dates, or forged bank seals, the ELA heatmap isolates the modified bounding box with >95% confidence (based on IEEE/Elsevier digital forensic standards).`;
+        source = 'IEEE Access & Elsevier Forensic Science International: Digital Document Verification';
       } else {
-        reply = `According to AICTE regulations and the Approval Process Handbook, all institutions must maintain valid, unencumbered security deposits locked in joint accounts with the Regional Officer of AICTE. Deposits are tracked from submission through 10-year maturity to final audit-cleared release. Would you like to review specific norms for your institution category?`;
-        source = 'AICTE Regulatory Bureau Knowledge Base';
+        reply = `Regarding your inquiry on "${textToSend}": All technical institutions operating under AICTE approval must keep security deposits active throughout the operational tenure or the statutory 10-year lock-in period. If an FDR is expiring or showing discrepancies in interest/joint holding, immediate renewal or rectification is required to maintain institutional approval status.`;
+        source = 'AICTE Regulation Bureau Administrative Guidelines';
       }
 
       setMessages(prev => [
@@ -102,66 +83,66 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
         }
       ]);
       setLoading(false);
-    }, 600);
+    }, 700);
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col h-[650px] overflow-hidden text-slate-100">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div className="w-full max-w-2xl bg-white border border-slate-300 rounded-xl shadow-2xl flex flex-col h-[600px] max-h-[90vh] overflow-hidden text-slate-800">
         {/* Header */}
-        <div className="p-4 bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 border-b border-slate-700 flex items-center justify-between">
+        <div className="p-4 bg-[#0B3558] text-white flex items-center justify-between border-b border-[#07243c]">
           <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
-              <Bot className="w-5 h-5 animate-pulse" />
+            <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white">
+              <Bot className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <h3 className="text-sm font-bold text-white">Suraksha AI Regulatory Copilot</h3>
-                <span className="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded-full font-mono">
-                  APH 2024-27 Live
+                <h3 className="text-sm font-bold text-white">AICTE Regulatory Virtual Assistant</h3>
+                <span className="text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded font-mono font-medium">
+                  APH Guidelines Active
                 </span>
               </div>
-              <p className="text-[11px] text-slate-300">AICTE Approval Process & Banking Lien Intelligence</p>
+              <p className="text-xs text-blue-100">AICTE Approval Process & Banking Lien Helpdesk</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+            className="p-1.5 text-blue-200 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Message Thread */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
           {messages.map((m, idx) => (
             <div
               key={idx}
               className={`flex flex-col ${m.sender === 'user' ? 'items-end' : 'items-start'}`}
             >
               <div
-                className={`max-w-[85%] rounded-2xl p-4 text-xs leading-relaxed ${
+                className={`max-w-[85%] rounded-xl p-3.5 text-xs leading-relaxed ${
                   m.sender === 'user'
-                    ? 'bg-blue-600 text-white font-medium rounded-br-sm'
-                    : 'bg-slate-800 text-slate-200 border border-slate-700 rounded-bl-sm'
+                    ? 'bg-[#0B3558] text-white rounded-br-none shadow-xs font-medium'
+                    : 'bg-white text-slate-800 border border-slate-200 rounded-bl-none shadow-xs'
                 }`}
               >
                 <div className="whitespace-pre-wrap">{m.text}</div>
                 {m.sourceDoc && (
-                  <div className="mt-2 pt-2 border-t border-slate-700/80 text-[10px] text-amber-300/90 flex items-center space-x-1">
-                    <BookOpen className="w-3 h-3 shrink-0" />
-                    <span>Statutory Ref: {m.sourceDoc}</span>
+                  <div className="mt-2 pt-2 border-t border-slate-200 text-[11px] text-blue-900 font-medium flex items-center space-x-1">
+                    <BookOpen className="w-3.5 h-3.5 shrink-0 text-blue-700" />
+                    <span>Reference: {m.sourceDoc}</span>
                   </div>
                 )}
               </div>
 
               {m.chips && (
-                <div className="mt-3 flex flex-wrap gap-1.5 max-w-[90%]">
+                <div className="mt-2.5 flex flex-wrap gap-1.5 max-w-[90%]">
                   {m.chips.map((chip, cIdx) => (
                     <button
                       key={cIdx}
                       onClick={() => handleSend(chip)}
-                      className="text-[11px] bg-slate-800 hover:bg-slate-700 text-blue-300 border border-slate-700 hover:border-blue-500/50 px-2.5 py-1 rounded-full transition-all text-left"
+                      className="text-left text-[11px] bg-white hover:bg-blue-50 text-slate-700 hover:text-blue-900 px-2.5 py-1 rounded-lg border border-slate-200 transition-colors shadow-2xs"
                     >
                       {chip}
                     </button>
@@ -172,41 +153,37 @@ export const AicteCopilotModal: React.FC<CopilotModalProps> = ({ isOpen, onClose
           ))}
 
           {loading && (
-            <div className="flex items-center space-x-2 text-xs text-slate-400 p-2">
-              <Bot className="w-4 h-4 animate-spin text-blue-400" />
-              <span>Analyzing AICTE Regulatory Handbook & Legal Precedents...</span>
+            <div className="flex items-center space-x-2 text-xs text-slate-500">
+              <Sparkles className="w-4 h-4 text-blue-600 animate-spin" />
+              <span>Analyzing AICTE Regulatory Regulations...</span>
             </div>
           )}
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 bg-slate-950 border-t border-slate-800">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSend();
-            }}
-            className="flex items-center space-x-2"
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSend();
+          }}
+          className="p-3 bg-white border-t border-slate-200 flex items-center space-x-2"
+        >
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask about AICTE deposit norms, 10-year lock-in, bank lien, or refund..."
+            className="flex-1 bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+          <button
+            type="submit"
+            disabled={!input.trim() || loading}
+            className="p-2 bg-[#0B3558] hover:bg-[#07243c] disabled:opacity-40 text-white rounded-lg transition-colors shadow-sm"
           >
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask anything about AICTE FDR rules, lien marking, refund affidavit, or ELA forgery..."
-              className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
-            />
-            <button
-              type="submit"
-              disabled={!input.trim() || loading}
-              className="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-colors shadow-md"
-            >
-              <Send className="w-3.5 h-3.5" />
-              <span>Ask</span>
-            </button>
-          </form>
-        </div>
+            <Send className="w-4 h-4" />
+          </button>
+        </form>
       </div>
     </div>
   );
 };
-

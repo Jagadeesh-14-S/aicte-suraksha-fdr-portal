@@ -91,31 +91,31 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
-          <div className="flex items-center space-x-2 text-xs font-semibold text-blue-400 uppercase tracking-wider mb-1">
+          <div className="flex items-center space-x-2 text-xs font-bold text-[#0B3558] uppercase tracking-wider mb-1">
             <FolderKanban className="w-4 h-4" />
-            <span>AICTE Regulation Bureau • National Database</span>
+            <span>AICTE Regulation Bureau • National Repository</span>
           </div>
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight font-serif">
             Institutional Security Deposit & FDR Repository
           </h1>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Real-time tracking of institution-wise fixed deposits, bank lien encumbrances, and maturity milestones.
+          <p className="text-xs text-slate-600 mt-0.5">
+            Central repository for real-time monitoring of institution-wise fixed deposits, bank lien encumbrances, and 10-year maturity milestones.
           </p>
         </div>
 
         <div className="flex items-center space-x-3 shrink-0">
           <button
             onClick={exportCsv}
-            className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 flex items-center space-x-1.5 transition-colors"
+            className="px-3.5 py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-lg text-xs font-semibold border border-slate-300 flex items-center space-x-1.5 transition-colors shadow-sm"
           >
-            <Download className="w-4 h-4 text-slate-400" />
+            <Download className="w-4 h-4 text-slate-500" />
             <span>Export CSV</span>
           </button>
           <button
             onClick={onOpenUpload}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold flex items-center space-x-1.5 shadow-lg transition-colors"
+            className="px-4 py-2 bg-[#0B3558] hover:bg-[#124b7a] text-white rounded-lg text-xs font-bold flex items-center space-x-1.5 shadow transition-colors"
           >
             <Plus className="w-4 h-4" />
             <span>New FDR Submission</span>
@@ -124,7 +124,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
       </div>
 
       {/* Search and Filters Bar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm space-y-3">
+      <div className="bg-white border border-slate-200/90 rounded-xl p-4 shadow-sm space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
           {/* Search Input */}
           <div className="md:col-span-6 relative">
@@ -134,7 +134,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
               placeholder="Search by Institution Name, FDR Number, Bank, or Account Number..."
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              className="w-full bg-slate-50 border border-slate-300 rounded-lg pl-10 pr-4 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#0B3558] focus:bg-white transition-colors"
             />
           </div>
 
@@ -143,7 +143,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-[#0B3558] focus:bg-white transition-colors"
             >
               <option value="ALL">All Statuses ({fdrList.length})</option>
               <option value="LIEN_MARKED">Lien Marked (Active)</option>
@@ -161,7 +161,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
             <select
               value={regionFilter}
               onChange={e => setRegionFilter(e.target.value)}
-              className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-[#0B3558] focus:bg-white transition-colors"
             >
               <option value="ALL">All Regional Offices (All India)</option>
               {(Object.keys(REGIONAL_OFFICES_METADATA) as RegionalOffice[]).map((reg) => (
@@ -174,8 +174,8 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
         </div>
 
         {/* Filter Summary Chips */}
-        <div className="flex items-center justify-between text-xs text-slate-400 pt-1">
-          <span>Showing {filtered.length} of {fdrList.length} total instruments</span>
+        <div className="flex items-center justify-between text-xs text-slate-500 pt-1 border-t border-slate-100">
+          <span>Showing <strong>{filtered.length}</strong> of <strong>{fdrList.length}</strong> total instruments</span>
           {(searchTerm || statusFilter !== 'ALL' || regionFilter !== 'ALL') && (
             <button
               onClick={() => {
@@ -183,7 +183,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
                 setStatusFilter('ALL');
                 setRegionFilter('ALL');
               }}
-              className="text-blue-400 hover:text-blue-300 font-medium"
+              className="text-[#0B3558] hover:underline font-bold text-xs"
             >
               Reset Filters
             </button>
@@ -192,10 +192,10 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
       </div>
 
       {/* Main Table Card */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-slate-200/90 rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950 text-slate-400 font-semibold uppercase text-[10px] border-b border-slate-800">
+            <thead className="bg-slate-50 text-slate-600 font-bold uppercase text-[10px] border-b border-slate-200">
               <tr>
                 <th className="px-4 py-3">FDR Instrument</th>
                 <th className="px-4 py-3">Institution & Region</th>
@@ -206,7 +206,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800">
+            <tbody className="divide-y divide-slate-100">
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={7} className="px-4 py-12 text-center text-slate-500">
@@ -220,45 +220,45 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
                   const daysRemaining = Math.ceil((maturity.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
                   return (
-                    <tr key={fdr.id} className="hover:bg-slate-800/40 transition-colors">
+                    <tr key={fdr.id} className="hover:bg-slate-50/80 transition-colors">
                       {/* FDR Number & Bank */}
                       <td className="px-4 py-3.5">
-                        <div className="font-mono font-bold text-white">{fdr.fdrNumber}</div>
-                        <div className="text-[11px] text-slate-400">{fdr.bankName}</div>
+                        <div className="font-mono font-bold text-slate-900">{fdr.fdrNumber}</div>
+                        <div className="text-[11px] text-slate-600">{fdr.bankName}</div>
                         <div className="text-[10px] font-mono text-slate-500">{fdr.ifscCode}</div>
                       </td>
 
                       {/* Institution */}
                       <td className="px-4 py-3.5 max-w-[240px]">
-                        <div className="font-semibold text-slate-200 truncate">{fdr.institutionName}</div>
-                        <div className="text-[10px] text-slate-400 truncate">{fdr.jointHolderNames}</div>
-                        <div className="text-[10px] font-mono text-blue-400">{fdr.region.split('_')[0]}</div>
+                        <div className="font-bold text-slate-900 truncate">{fdr.institutionName}</div>
+                        <div className="text-[10px] text-slate-500 truncate">{fdr.jointHolderNames}</div>
+                        <div className="text-[10px] font-semibold text-[#0B3558]">{fdr.region.split('_')[0]}</div>
                       </td>
 
                       {/* Deposit Sum */}
                       <td className="px-4 py-3.5 font-mono">
-                        <div className="text-white font-bold">
+                        <div className="text-slate-900 font-bold">
                           ₹ {(fdr.depositAmount / 100000).toFixed(2)} Lakhs
                         </div>
-                        <div className="text-[10px] text-slate-400">
+                        <div className="text-[10px] text-slate-500">
                           Tenure: {fdr.tenureYears} Yrs @ {fdr.interestRate}%
                         </div>
                       </td>
 
                       {/* Maturity Date */}
                       <td className="px-4 py-3.5">
-                        <div className="font-mono text-slate-200">{fdr.maturityDate}</div>
+                        <div className="font-mono font-semibold text-slate-800">{fdr.maturityDate}</div>
                         <div className="text-[10px] mt-0.5">
                           {daysRemaining < 0 ? (
-                            <span className="text-rose-400 font-bold">
+                            <span className="text-red-700 font-bold bg-red-50 px-1.5 py-0.5 rounded border border-red-200">
                               Overdue by {Math.abs(daysRemaining)} days
                             </span>
                           ) : daysRemaining <= 30 ? (
-                            <span className="text-amber-400 font-bold">
+                            <span className="text-amber-800 font-bold bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
                               {daysRemaining} days remaining
                             </span>
                           ) : (
-                            <span className="text-slate-500">
+                            <span className="text-slate-500 font-medium">
                               {Math.floor(daysRemaining / 365.25)} yrs remaining
                             </span>
                           )}
@@ -267,10 +267,10 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
 
                       {/* Bank Lien */}
                       <td className="px-4 py-3.5">
-                        <span className={`inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        <span className={`inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${
                           fdr.lienStatus === 'LIEN_CONFIRMED'
-                            ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
-                            : 'bg-amber-950 text-amber-300 border border-amber-800'
+                            ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
+                            : 'bg-amber-50 text-amber-800 border-amber-300'
                         }`}>
                           <Lock className="w-3 h-3" />
                           <span>{fdr.lienStatus === 'LIEN_CONFIRMED' ? 'CBS Marked' : 'Pending'}</span>
@@ -279,18 +279,18 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
 
                       {/* Regulatory Status */}
                       <td className="px-4 py-3.5">
-                        <span className={`inline-block px-2.5 py-0.5 rounded text-[10px] font-bold ${
+                        <span className={`inline-block px-2.5 py-0.5 rounded text-[10px] font-bold border ${
                           fdr.status === 'DISCREPANCY_FLAGGED'
-                            ? 'bg-rose-950 text-rose-300 border border-rose-800'
+                            ? 'bg-red-50 text-red-800 border-red-200'
                             : fdr.status === 'MATURING_SOON'
-                            ? 'bg-amber-950 text-amber-300 border border-amber-800'
+                            ? 'bg-amber-50 text-amber-800 border-amber-200'
                             : fdr.status === 'RELEASE_REQUESTED'
-                            ? 'bg-blue-950 text-blue-300 border border-blue-800'
+                            ? 'bg-blue-50 text-blue-800 border-blue-200'
                             : fdr.status === 'RELEASED'
-                            ? 'bg-purple-950 text-purple-300 border border-purple-800'
-                            : 'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                            ? 'bg-purple-50 text-purple-800 border-purple-200'
+                            : 'bg-emerald-50 text-emerald-800 border-emerald-200'
                         }`}>
-                          {fdr.status.replace('_', ' ')}
+                          {fdr.status.replace(/_/g, ' ')}
                         </span>
                       </td>
 
@@ -298,7 +298,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
                       <td className="px-4 py-3.5 text-right space-x-1.5">
                         <button
                           onClick={() => onSelectFdr(fdr.id)}
-                          className="p-1.5 bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white rounded-lg transition-colors inline-block"
+                          className="p-1.5 bg-slate-100 hover:bg-[#0B3558] text-slate-700 hover:text-white rounded-lg transition-colors border border-slate-200 inline-block shadow-sm"
                           title="Inspect Scrutiny & Forensics"
                         >
                           <Eye className="w-4 h-4" />
@@ -306,7 +306,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
 
                         <button
                           onClick={() => onOpenBankLien(fdr)}
-                          className="p-1.5 bg-slate-800 hover:bg-purple-600 text-slate-300 hover:text-white rounded-lg transition-colors inline-block"
+                          className="p-1.5 bg-slate-100 hover:bg-purple-700 text-slate-700 hover:text-white rounded-lg transition-colors border border-slate-200 inline-block shadow-sm"
                           title="Core Banking CBS Lien Gateway"
                         >
                           <Lock className="w-4 h-4" />
@@ -315,7 +315,7 @@ export const FdrRepository: React.FC<FdrRepositoryProps> = ({
                         {daysRemaining <= 90 && fdr.status !== 'RELEASED' && (
                           <button
                             onClick={() => onOpenRefund(fdr)}
-                            className="p-1.5 bg-slate-800 hover:bg-emerald-600 text-slate-300 hover:text-white rounded-lg transition-colors inline-block"
+                            className="p-1.5 bg-slate-100 hover:bg-emerald-700 text-slate-700 hover:text-white rounded-lg transition-colors border border-slate-200 inline-block shadow-sm"
                             title="Process Release / Refund"
                           >
                             <FileCheck2 className="w-4 h-4" />

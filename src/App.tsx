@@ -8,6 +8,7 @@ import { DiscrepancyInspectorModal } from './components/DiscrepancyInspectorModa
 import { BankLienModal } from './components/BankLienModal';
 import { RefundWorkflowModal } from './components/RefundWorkflowModal';
 import { SupabaseConnectModal } from './components/SupabaseConnectModal';
+import { GovFooter } from './components/GovFooter';
 
 import { DashboardOverview } from './pages/DashboardOverview';
 import { FdrRepository } from './pages/FdrRepository';
@@ -47,7 +48,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#F4F6F9] text-slate-900 flex flex-col font-sans selection:bg-[#0B3558] selection:text-white">
       {/* Top Sovereignty & Role Navigation Bar */}
       <Navbar
         onOpenCopilot={() => setCopilotOpen(true)}
@@ -63,56 +64,61 @@ export const App: React.FC = () => {
         />
 
         {/* Main Operational Canvas */}
-        <main className="flex-1 overflow-y-auto bg-slate-950">
-          {currentTab === 'dashboard' && (
-            <DashboardOverview
-              onNavigateTab={(tab) => setCurrentTab(tab)}
-              onOpenUpload={() => setUploadOpen(true)}
-              onSelectFdr={handleSelectFdrById}
-            />
-          )}
+        <main id="main-content" className="flex-1 overflow-y-auto bg-[#F4F6F9] flex flex-col justify-between">
+          <div>
+            {currentTab === 'dashboard' && (
+              <DashboardOverview
+                onNavigateTab={(tab) => setCurrentTab(tab)}
+                onOpenUpload={() => setUploadOpen(true)}
+                onSelectFdr={handleSelectFdrById}
+              />
+            )}
 
-          {currentTab === 'repository' && (
-            <FdrRepository
-              onSelectFdr={handleSelectFdrById}
-              onOpenUpload={() => setUploadOpen(true)}
-              onOpenBankLien={(fdr) => setBankLienFdr(fdr)}
-              onOpenRefund={(fdr) => setRefundFdr(fdr)}
-            />
-          )}
+            {currentTab === 'repository' && (
+              <FdrRepository
+                onSelectFdr={handleSelectFdrById}
+                onOpenUpload={() => setUploadOpen(true)}
+                onOpenBankLien={(fdr) => setBankLienFdr(fdr)}
+                onOpenRefund={(fdr) => setRefundFdr(fdr)}
+              />
+            )}
 
-          {currentTab === 'scrutiny' && (
-            <ScrutinyBureau
-              onInspectFdr={handleSelectFdrById}
-              onOpenBankLien={(fdr) => setBankLienFdr(fdr)}
-            />
-          )}
+            {currentTab === 'scrutiny' && (
+              <ScrutinyBureau
+                onInspectFdr={handleSelectFdrById}
+                onOpenBankLien={(fdr) => setBankLienFdr(fdr)}
+              />
+            )}
 
-          {currentTab === 'bank-portal' && (
-            <BankLienPortal />
-          )}
+            {currentTab === 'bank-portal' && (
+              <BankLienPortal />
+            )}
 
-          {currentTab === 'maturity' && (
-            <MaturityAlerts
-              onOpenRefund={(fdr) => setRefundFdr(fdr)}
-              onSelectFdr={handleSelectFdrById}
-            />
-          )}
+            {currentTab === 'maturity' && (
+              <MaturityAlerts
+                onOpenRefund={(fdr) => setRefundFdr(fdr)}
+                onSelectFdr={handleSelectFdrById}
+              />
+            )}
 
-          {currentTab === 'release' && (
-            <ReleaseRefundWorkflow
-              onOpenRefund={(fdr) => setRefundFdr(fdr)}
-              onSelectFdr={handleSelectFdrById}
-            />
-          )}
+            {currentTab === 'release' && (
+              <ReleaseRefundWorkflow
+                onOpenRefund={(fdr) => setRefundFdr(fdr)}
+                onSelectFdr={handleSelectFdrById}
+              />
+            )}
 
-          {currentTab === 'ledger' && (
-            <ImmutableLedger />
-          )}
+            {currentTab === 'ledger' && (
+              <ImmutableLedger />
+            )}
 
-          {currentTab === 'research' && (
-            <ResearchSynthesis />
-          )}
+            {currentTab === 'research' && (
+              <ResearchSynthesis />
+            )}
+          </div>
+
+          {/* Official Government of India & AICTE Footer */}
+          <GovFooter />
         </main>
       </div>
 
